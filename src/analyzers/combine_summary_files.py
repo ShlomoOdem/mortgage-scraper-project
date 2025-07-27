@@ -88,6 +88,14 @@ def combine_summary_files():
                         mortgage_data['total_investment_net_value_after_tax'] = value
                     elif 'Total Cost' in parameter:
                         mortgage_data['total_cost_interest_minus_profit'] = value
+                    elif 'Weighted Monthly Payment' in parameter:
+                        mortgage_data['weighted_monthly_payment'] = value
+                    elif 'Weighted Cost' in parameter:
+                        mortgage_data['weighted_cost'] = value
+                    elif 'Weighted Investment Profit' in parameter:
+                        mortgage_data['weighted_investment_profit'] = value
+                    elif 'Weighted Calculation Converged' in parameter:
+                        mortgage_data['weighted_calculation_converged'] = value
                     elif 'Extraction Timestamp' in parameter:
                         mortgage_data['extraction_timestamp'] = value
                 
@@ -188,7 +196,8 @@ def create_analysis_summary():
                        'total_mortgage_interest', 'total_investment_amount', 
                        'total_investment_final_value', 'total_investment_profit',
                        'total_investment_taxes', 'total_investment_profit_after_tax',
-                       'total_investment_net_value_after_tax', 'total_cost_interest_minus_profit']
+                       'total_investment_net_value_after_tax', 'total_cost_interest_minus_profit',
+                       'weighted_monthly_payment', 'weighted_cost', 'weighted_investment_profit']
         
         for col in numeric_cols:
             if col in df.columns:
@@ -205,6 +214,29 @@ def create_analysis_summary():
             print(f"\nInvestment Profit After Tax:")
             print(f"  Average profit: {df['total_investment_profit_after_tax'].mean():.2f}")
             print(f"  Total profit across all mortgages: {df['total_investment_profit_after_tax'].sum():.2f}")
+        
+        # Show weighted payment statistics
+        if 'weighted_monthly_payment' in df.columns:
+            print(f"\nWeighted Monthly Payment Analysis:")
+            print(f"  Average weighted payment: {df['weighted_monthly_payment'].mean():.2f} NIS")
+            print(f"  Minimum weighted payment: {df['weighted_monthly_payment'].min():.2f} NIS")
+            print(f"  Maximum weighted payment: {df['weighted_monthly_payment'].max():.2f} NIS")
+            
+            # Show best and worst by weighted payment
+            best_weighted = df.loc[df['weighted_monthly_payment'].idxmin()]
+            worst_weighted = df.loc[df['weighted_monthly_payment'].idxmax()]
+            
+            print(f"\nBest Mortgage (Lowest Weighted Payment):")
+            print(f"  Type: {best_weighted['loan_type']}")
+            print(f"  Interest: {best_weighted['interest_rate']}%")
+            print(f"  Term: {best_weighted['loan_term_months']} months")
+            print(f"  Weighted Payment: {best_weighted['weighted_monthly_payment']:.2f} NIS")
+            
+            print(f"\nWorst Mortgage (Highest Weighted Payment):")
+            print(f"  Type: {worst_weighted['loan_type']}")
+            print(f"  Interest: {worst_weighted['interest_rate']}%")
+            print(f"  Term: {worst_weighted['loan_term_months']} months")
+            print(f"  Weighted Payment: {worst_weighted['weighted_monthly_payment']:.2f} NIS")
         
         # Show best and worst mortgages by cost
         if 'total_cost_interest_minus_profit' in df.columns:

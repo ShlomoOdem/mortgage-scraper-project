@@ -22,6 +22,7 @@ from urllib.parse import unquote
 
 # Import the investment class
 from invesment import StockInvestment
+from ..calculators.weighted_payment_calculator import WeightedPaymentCalculator
 
 def get_combination_key(combination):
     """Generate a unique key for a mortgage combination"""
@@ -517,7 +518,24 @@ def calculate_investment_data(monthly_payments, annual_return_rate=0.07, annual_
         else:
             enhanced_payments.append(payment)
     
-    return enhanced_payments, investment.get_summary()
+    # Calculate weighted monthly payment
+    print("Calculating weighted monthly payment...")
+    loan_amount = sum(payment.get('principal', 0) for payment in monthly_payments)
+    if loan_amount == 0:
+        # Fallback: estimate loan amount from first payment
+        first_payment = monthly_payments[0] if monthly_payments else {}
+        loan_amount = first_payment.get('month_payment', 0) * len(monthly_payments) * 0.8  # Rough estimate
+    
+    weighted_calculator = WeightedPaymentCalculator(
+        monthly_payments=monthly_payments,
+        loan_amount=loan_amount,
+        annual_return_rate=annual_return_rate,
+        tax_rate=tax_rate
+    )
+    
+    weighted_result = weighted_calculator.calculate_weighted_payment()
+    
+    return enhanced_payments, investment.get_summary(), weighted_result
 
 def parse_cp_programs_data(cp_programs_value):
     """Parse the cp_programs value into structured data"""
@@ -545,13 +563,14 @@ def parse_cp_programs_data(cp_programs_value):
                 monthly_payments = programs
                 
                 # Calculate investment data
-                enhanced_payments, investment_summary = calculate_investment_data(monthly_payments)
+                enhanced_payments, investment_summary, weighted_result = calculate_investment_data(monthly_payments)
                 
                 return {
                     'input_data': input_data,
                     'monthly_payments': enhanced_payments,
                     'total_payments': len(enhanced_payments),
-                    'investment_summary': investment_summary
+                    'investment_summary': investment_summary,
+                    'weighted_result': weighted_result
                 }
         
         return data
@@ -670,6 +689,26 @@ def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linke
                 summary_data.append({
                     'Parameter': 'Total Cost (Interest - Investment Profit)',
                     'Value': f"{total_cost:.2f}"
+                })
+            
+            # Add weighted payment data
+            if 'weighted_result' in parsed_data:
+                weighted = parsed_data['weighted_result']
+                summary_data.append({
+                    'Parameter': 'Weighted Monthly Payment (30 years)',
+                    'Value': f"{weighted.get('weighted_monthly_payment', 0):.2f}"
+                })
+                summary_data.append({
+                    'Parameter': 'Weighted Cost (should be ~0)',
+                    'Value': f"{weighted.get('weighted_cost', 0):.2f}"
+                })
+                summary_data.append({
+                    'Parameter': 'Weighted Investment Profit',
+                    'Value': f"{weighted.get('total_investment_profit', 0):.2f}"
+                })
+                summary_data.append({
+                    'Parameter': 'Weighted Calculation Converged',
+                    'Value': 'Yes' if weighted.get('converged', False) else 'No'
                 })
             
             summary_data.append({

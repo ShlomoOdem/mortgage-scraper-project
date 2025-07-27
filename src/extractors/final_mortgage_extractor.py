@@ -16,6 +16,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import json
 import re
 import sys
+from ..calculators.weighted_payment_calculator import WeightedPaymentCalculator
 
 def setup_driver():
     """Set up Chrome driver with appropriate options"""
@@ -625,6 +626,29 @@ def save_data_to_files(data, filename_prefix="mortgage_data"):
     if data.get("amortization_data", {}).get("structuredData", {}).get("monthlyPayments"):
         payments = data["amortization_data"]["structuredData"]["monthlyPayments"]
         if payments:
+            # Calculate weighted monthly payment
+            print("Calculating weighted monthly payment...")
+            loan_amount = float(data.get("loan_amount", 1000000))
+            
+            # Convert payments to the format expected by WeightedPaymentCalculator
+            monthly_payments = []
+            for payment in payments:
+                monthly_payments.append({
+                    'month_payment': float(payment.get("payment", 0))
+                })
+            
+            weighted_calculator = WeightedPaymentCalculator(
+                monthly_payments=monthly_payments,
+                loan_amount=loan_amount,
+                annual_return_rate=0.07,
+                tax_rate=0.25
+            )
+            
+            weighted_result = weighted_calculator.calculate_weighted_payment()
+            
+            # Add weighted result to data
+            data["weighted_result"] = weighted_result
+            
             # Create a DataFrame from the payment data
             payment_rows = []
             for i, payment in enumerate(payments):
@@ -642,6 +666,20 @@ def save_data_to_files(data, filename_prefix="mortgage_data"):
             payments_csv_filename = f"{filename_prefix}_payments_{timestamp}.csv"
             df_payments.to_csv(payments_csv_filename, index=False, encoding="utf-8")
             print(f"Payment schedule saved to {payments_csv_filename}")
+            
+            # Save weighted payment summary
+            weighted_summary_filename = f"{filename_prefix}_weighted_summary_{timestamp}.txt"
+            with open(weighted_summary_filename, "w", encoding="utf-8") as f:
+                f.write("=== Weighted Monthly Payment Summary ===\n\n")
+                f.write(f"Loan Amount: {loan_amount:,.2f} NIS\n")
+                f.write(f"Weighted Monthly Payment (30 years): {weighted_result['weighted_monthly_payment']:,.2f} NIS\n")
+                f.write(f"Weighted Cost (should be ~0): {weighted_result['weighted_cost']:,.2f} NIS\n")
+                f.write(f"Total Investment Profit: {weighted_result['total_investment_profit']:,.2f} NIS\n")
+                f.write(f"Total Mortgage Interest: {weighted_result['total_mortgage_interest']:,.2f} NIS\n")
+                f.write(f"Calculation Converged: {'Yes' if weighted_result['converged'] else 'No'}\n")
+                f.write(f"Iterations: {weighted_result['iterations']}\n")
+            
+            print(f"Weighted payment summary saved to {weighted_summary_filename}")
     
     # Save table data as CSV if available
     if data.get("amortization_data", {}).get("tables"):
@@ -696,6 +734,15 @@ def save_data_to_files(data, filename_prefix="mortgage_data"):
                 f.write(f"Total Payments: {structured_data.get('totalPayments', 0)}\n")
                 f.write(f"Total Interest: {structured_data.get('totalInterest', 0)}\n")
                 f.write(f"Total Principal: {structured_data.get('totalPrincipal', 0)}\n")
+            
+            # Add weighted payment summary
+            if data.get("weighted_result"):
+                weighted = data["weighted_result"]
+                f.write(f"\n=== Weighted Payment Summary ===\n")
+                f.write(f"Weighted Monthly Payment (30 years): {weighted.get('weighted_monthly_payment', 0):,.2f} NIS\n")
+                f.write(f"Weighted Cost: {weighted.get('weighted_cost', 0):,.2f} NIS\n")
+                f.write(f"Total Investment Profit: {weighted.get('total_investment_profit', 0):,.2f} NIS\n")
+                f.write(f"Calculation Converged: {'Yes' if weighted.get('converged', False) else 'No'}\n")
         
         print(f"Summary saved to {summary_filename}")
 
