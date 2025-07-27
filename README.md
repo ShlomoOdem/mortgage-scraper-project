@@ -1,133 +1,85 @@
-# Mortgage Scraper Project
+# Mortgage Scraper - Core Components
 
-A comprehensive mortgage analysis and scraping tool for Israeli mortgage market data.
+A streamlined mortgage analysis tool that scrapes web data, calculates investments, and generates summaries.
+
+## Core Components
+
+### 1. Web Scraping
+- **`src/extractors/final_mortgage_extractor.py`** - Main mortgage data extractor
+- **`src/extractors/automated_cp_programs_extractor.py`** - Automated CP programs extractor
+
+### 2. Investment Calculations
+- **`src/calculators/invesment.py`** - Investment calculator for remaining money
+- **`investment_module/calculator.py`** - Advanced investment calculations with tax/inflation
+
+### 3. Data Processing
+- **`src/analyzers/combine_summary_files.py`** - Combines summary files into comprehensive reports
+
+### 4. Main Scripts
+- **`scripts/run_comprehensive_mortgage_analysis.py`** - Main analysis runner
 
 ## Project Structure
 
 ```
 mortgage_scraper/
-├── src/                          # Source code
-│   ├── extractors/               # Data extraction modules
-│   │   ├── automated_cp_programs_extractor.py
-│   │   ├── batch_cp_programs_extractor.py
-│   │   ├── cp_programs_extractor.py
-│   │   ├── debug_cp_programs.py
-│   │   ├── extract_from_sample.py
+├── src/
+│   ├── extractors/               # Web scraping modules
 │   │   ├── final_mortgage_extractor.py
-│   │   ├── comprehensive_mortgage_extractor.py
-│   │   ├── targeted_amortization_extractor.py
-│   │   ├── robust_mortgage_extractor.py
-│   │   └── mortgage_data_extractor.py
-│   ├── calculators/              # Mortgage calculation modules
-│   │   ├── enhanced_mortgage_calculator.py
-│   │   ├── mortgage_calculator_interaction.py
+│   │   └── automated_cp_programs_extractor.py
+│   ├── calculators/              # Investment calculations
 │   │   └── invesment.py
-│   ├── analyzers/                # Analysis modules
-│   │   ├── calculator_analyzer.py
-│   │   ├── combine_summary_files.py
-│   │   └── generate_mortgage_combinations.py
-│   └── utils/                    # Utility functions
-├── scripts/                      # Executable scripts
-│   ├── run_automated_extraction.sh
-│   ├── run_comprehensive_mortgage_analysis.py
-│   ├── run_full_analysis_headless.py
-│   └── run_multiple_scenarios.sh
-├── data/                         # Data files
+│   └── analyzers/                # Data analysis
+│       └── combine_summary_files.py
+├── scripts/                      # Main execution scripts
+│   └── run_comprehensive_mortgage_analysis.py
+├── investment_module/            # Advanced investment module
+│   ├── calculator.py
+│   ├── models.py
+│   ├── utils.py
+│   └── __init__.py
+├── data/
 │   ├── raw/                      # Raw input data
-│   │   ├── mashfix.xls
-│   │   ├── pribmash.xls
-│   │   └── sample.txt
-│   ├── processed/                # Processed data
-│   │   ├── all_mortgage_results_20250724_003939.json
-│   │   ├── mortgage_combinations_*.json
-│   │   ├── processed_combinations.json
-│   │   └── test_mortgage_combinations.json
-│   └── results/                  # Analysis results
-│       ├── combined_mortgage_summaries_20250725_042251.csv
+│   └── results/                  # Generated results (CSV files preserved)
+│       ├── summary_files/        # Individual summary files
 │       ├── payments_files/       # Payment schedule files
-│       └── summary_files/        # Summary analysis files
-├── docs/                         # Documentation
-│   ├── README.md
-│   ├── README_COMPREHENSIVE_ANALYSIS.md
-│   ├── USAGE_GUIDE.md
-│   ├── COMBINED_ANALYSIS_GUIDE.md
-│   └── AUTOMATED_EXTRACTION_README.md
-├── config/                       # Configuration files
-│   └── configurable_batch_extractor.py
-├── tests/                        # Test files
-└── investment_module/            # Investment analysis module
-    ├── __init__.py
-    ├── calculator.py
-    ├── models.py
-    ├── utils.py
-    ├── test_example.py
-    ├── setup.py
-    ├── requirements.txt
-    ├── README.md
-    ├── EXTRACTION_SUMMARY.md
-    └── MIGRATION_GUIDE.md
+│       └── combined_mortgage_summaries_*.csv
+├── requirements.txt
+├── setup.py
+└── .gitignore
 ```
 
 ## Quick Start
 
-### Running Analysis Scripts
-
+### Install Dependencies
 ```bash
-# Run comprehensive mortgage analysis
+pip install -r requirements.txt
+```
+
+### Run Analysis
+```bash
 python scripts/run_comprehensive_mortgage_analysis.py
-
-# Run automated extraction
-bash scripts/run_automated_extraction.sh
-
-# Run full analysis in headless mode
-python scripts/run_full_analysis_headless.py
 ```
 
-### Using Extractors
-
+### Extract Single Mortgage
 ```bash
-# Extract mortgage data
 python src/extractors/final_mortgage_extractor.py
-
-# Extract CP programs
-python src/extractors/automated_cp_programs_extractor.py
 ```
 
-### Using Calculators
-
+### Combine Summary Files
 ```bash
-# Enhanced mortgage calculator
-python src/calculators/enhanced_mortgage_calculator.py
-
-# Investment analysis
-python src/calculators/invesment.py
+python src/analyzers/combine_summary_files.py
 ```
 
-## Data Organization
+## Data Files Preserved
 
-- **Raw Data**: Input files like Excel spreadsheets and sample data
-- **Processed Data**: JSON files with extracted and processed mortgage data
-- **Results**: CSV files with analysis results, payment schedules, and summaries
+All existing CSV files in `data/results/` have been preserved, including:
+- Summary files for different mortgage combinations
+- Payment schedule files
+- Combined analysis results
 
-## Documentation
+## Core Functionality
 
-See the `docs/` directory for detailed documentation:
-- `README_COMPREHENSIVE_ANALYSIS.md` - Comprehensive analysis guide
-- `USAGE_GUIDE.md` - Usage instructions
-- `COMBINED_ANALYSIS_GUIDE.md` - Combined analysis workflow
-- `AUTOMATED_EXTRACTION_README.md` - Automated extraction guide
-
-## Investment Module
-
-The `investment_module/` contains a separate investment analysis package with its own documentation and requirements.
-
-## Development
-
-To add new functionality:
-1. Place extractors in `src/extractors/`
-2. Place calculators in `src/calculators/`
-3. Place analyzers in `src/analyzers/`
-4. Place utility functions in `src/utils/`
-5. Place executable scripts in `scripts/`
-6. Place configuration files in `config/`
-7. Place test files in `tests/` 
+1. **Web Scraping**: Extracts mortgage data from online calculators
+2. **Investment Analysis**: Calculates returns on remaining money after mortgage payments
+3. **Data Export**: Saves results to CSV files
+4. **Summary Generation**: Creates comprehensive mortgage summaries 

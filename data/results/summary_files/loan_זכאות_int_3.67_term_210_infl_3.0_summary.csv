@@ -1,0 +1,18 @@
+Parameter,Value
+Loan Type,זכאות
+Interest Rate (%),3.67
+Loan Term (months),210
+Inflation Rate (%),3.0
+Loan Amount,100000
+Channel,זכאות
+Amortization Method,בוליט
+Total Monthly Payments,210
+Total Mortgage Interest,84541.52
+Total Investment Amount,166775.14
+Total Investment Final Value,327153.43
+Total Investment Profit,106328.00
+Total Investment Taxes,26582.00
+Total Investment Profit After Tax,79746.00
+Total Investment Net Value After Tax,300571.43
+Total Cost (Interest - Investment Profit),4795.51
+Extraction Timestamp,20250725_000738

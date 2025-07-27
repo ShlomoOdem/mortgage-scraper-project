@@ -1,0 +1,18 @@
+Parameter,Value
+Loan Type,משתנה לא צמודה כל 5
+Interest Rate (%),5.04
+Loan Term (months),30
+Inflation Rate (%),4.0
+Loan Amount,100000
+Channel,משתנה לא צמודה כל 5
+Amortization Method,בוליט
+Total Monthly Payments,300
+Total Mortgage Interest,126000.00
+Total Investment Amount,233220.00
+Total Investment Final Value,609992.67
+Total Investment Profit,264846.69
+Total Investment Taxes,66211.67
+Total Investment Profit After Tax,198635.02
+Total Investment Net Value After Tax,543781.00
+Total Cost (Interest - Investment Profit),-72635.02
+Extraction Timestamp,20250724_230146

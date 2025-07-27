@@ -1,0 +1,18 @@
+Parameter,Value
+Loan Type,"עוגן מק""מ"
+Interest Rate (%),3.83
+Loan Term (months),30
+Inflation Rate (%),3.0
+Loan Amount,100000
+Channel,"עוגן מק""מ"
+Amortization Method,בוליט
+Total Monthly Payments,300
+Total Mortgage Interest,95750.00
+Total Investment Amount,263369.17
+Total Investment Final Value,688848.56
+Total Investment Profit,299084.35
+Total Investment Taxes,74771.09
+Total Investment Profit After Tax,224313.26
+Total Investment Net Value After Tax,614077.47
+Total Cost (Interest - Investment Profit),-128563.26
+Extraction Timestamp,20250724_232300

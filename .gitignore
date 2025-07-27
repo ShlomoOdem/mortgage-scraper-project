@@ -53,7 +53,9 @@ Thumbs.db
 
 # Data files (exclude large generated data)
 data/processed/
-data/results/
+# Keep results but exclude lock files
+data/results/*.lock*
+data/results/.~lock*
 
 # Jupyter Notebook
 .ipynb_checkpoints
