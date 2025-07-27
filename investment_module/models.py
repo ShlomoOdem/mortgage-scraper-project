@@ -65,27 +65,4 @@ class InvestmentComparison:
     monthly_results: List[InvestmentResult]
 
 
-@dataclass
-class RiskMetrics:
-    """Risk analysis metrics for investment portfolio"""
-    volatility: float
-    sharpe_ratio: float
-    max_drawdown: float
-    var_95: float  # Value at Risk 95%
-    expected_return: float
-    risk_free_rate: float = 0.03
-
-
-@dataclass
-class MonteCarloResult:
-    """Result of Monte Carlo simulation"""
-    mean_final_value: float
-    median_final_value: float
-    std_final_value: float
-    min_final_value: float
-    max_final_value: float
-    percentile_5: float
-    percentile_25: float
-    percentile_75: float
-    percentile_95: float
-    success_rate: float  # Percentage of scenarios above target 
+ 

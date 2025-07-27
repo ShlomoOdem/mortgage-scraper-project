@@ -6,7 +6,7 @@ from typing import List, Dict, Any, Optional
 import math
 from models import (
     InvestmentData, InvestmentResult, InvestmentSummary, 
-    MonthlyInvestmentData, RiskMetrics, MonteCarloResult
+    MonthlyInvestmentData
 )
 from utils import (
     calculate_monthly_rate, calculate_future_value, 
@@ -470,144 +470,17 @@ class InvestmentCalculator:
     
     @staticmethod
     def calculate_monthly_investment_tax_accurate(monthly_payment: float, annual_rate: float, inflation_rate: float, years: float) -> Dict[str, float]:
-        """Calculate monthly investment with accurate tax calculation
+        """Calculate monthly investment with accurate tax treatment
         
         Args:
-            monthly_payment: Monthly payment
-            annual_rate: Annual interest rate
+            monthly_payment: Monthly investment amount
+            annual_rate: Annual return rate
             inflation_rate: Annual inflation rate
-            years: Number of years
+            years: Investment period
             
         Returns:
             Dictionary with accurate tax calculation
         """
         return InvestmentCalculator.calculate_monthly_investment_reference_method(
             monthly_payment, annual_rate, inflation_rate, years
-        )
-    
-    @staticmethod
-    def calculate_risk_metrics(monthly_values: List[Dict[str, float]], risk_free_rate: float = 0.03) -> RiskMetrics:
-        """Calculate risk metrics for investment portfolio
-        
-        Args:
-            monthly_values: List of monthly portfolio values
-            risk_free_rate: Risk-free rate
-            
-        Returns:
-            RiskMetrics object
-        """
-        if not monthly_values:
-            return RiskMetrics(0, 0, 0, 0, 0, risk_free_rate)
-        
-        # Calculate returns
-        returns = []
-        for i in range(1, len(monthly_values)):
-            prev_value = monthly_values[i-1]["cumulative_future_value"]
-            curr_value = monthly_values[i]["cumulative_future_value"]
-            if prev_value > 0:
-                returns.append((curr_value - prev_value) / prev_value)
-        
-        if not returns:
-            return RiskMetrics(0, 0, 0, 0, 0, risk_free_rate)
-        
-        # Calculate metrics
-        volatility = math.sqrt(sum((r - sum(returns)/len(returns))**2 for r in returns) / len(returns))
-        expected_return = sum(returns) / len(returns)
-        sharpe_ratio = (expected_return - risk_free_rate) / volatility if volatility > 0 else 0
-        
-        # Calculate max drawdown
-        values = [mv["cumulative_future_value"] for mv in monthly_values]
-        peak = values[0]
-        max_drawdown = 0
-        for value in values:
-            if value > peak:
-                peak = value
-            drawdown = (peak - value) / peak
-            max_drawdown = max(max_drawdown, drawdown)
-        
-        # Calculate VaR (95%)
-        sorted_returns = sorted(returns)
-        var_95 = abs(sorted_returns[int(0.05 * len(sorted_returns))])
-        
-        return RiskMetrics(
-            volatility=volatility,
-            sharpe_ratio=sharpe_ratio,
-            max_drawdown=max_drawdown,
-            var_95=var_95,
-            expected_return=expected_return,
-            risk_free_rate=risk_free_rate
-        )
-    
-    @staticmethod
-    def run_monte_carlo_simulation(
-        monthly_investment: float,
-        mean_return: float,
-        volatility: float,
-        inflation_rate: float,
-        years: int = 30,
-        simulations: int = 1000,
-        target_value: Optional[float] = None
-    ) -> MonteCarloResult:
-        """Run Monte Carlo simulation for investment scenarios
-        
-        Args:
-            monthly_investment: Monthly investment amount
-            mean_return: Expected annual return
-            volatility: Annual volatility
-            inflation_rate: Annual inflation rate
-            years: Investment period
-            simulations: Number of simulations
-            target_value: Target value for success rate calculation
-            
-        Returns:
-            MonteCarloResult object
-        """
-        import random
-        
-        final_values = []
-        months = years * 12
-        monthly_mean = (1 + mean_return) ** (1/12) - 1
-        monthly_vol = volatility / math.sqrt(12)
-        
-        for _ in range(simulations):
-            portfolio_value = 0
-            for month in range(months):
-                # Generate random return
-                monthly_return = random.gauss(monthly_mean, monthly_vol)
-                # Apply inflation
-                inflation_adjusted_return = (1 + monthly_return) / (1 + inflation_rate/12) - 1
-                
-                # Add monthly investment and compound
-                portfolio_value = (portfolio_value + monthly_investment) * (1 + inflation_adjusted_return)
-            
-            final_values.append(portfolio_value)
-        
-        # Calculate statistics
-        final_values.sort()
-        mean_final = sum(final_values) / len(final_values)
-        median_final = final_values[len(final_values) // 2]
-        
-        # Calculate percentiles
-        p5 = final_values[int(0.05 * len(final_values))]
-        p25 = final_values[int(0.25 * len(final_values))]
-        p75 = final_values[int(0.75 * len(final_values))]
-        p95 = final_values[int(0.95 * len(final_values))]
-        
-        # Calculate success rate
-        success_rate = 0
-        if target_value:
-            success_count = sum(1 for v in final_values if v >= target_value)
-            success_rate = success_count / len(final_values)
-        
-        return MonteCarloResult(
-            mean_final_value=mean_final,
-            median_final_value=median_final,
-            std_final_value=math.sqrt(sum((v - mean_final)**2 for v in final_values) / len(final_values)),
-            min_final_value=min(final_values),
-            max_final_value=max(final_values),
-            percentile_5=p5,
-            percentile_25=p25,
-            percentile_75=p75,
-            percentile_95=p95,
-            success_rate=success_rate
         ) 
