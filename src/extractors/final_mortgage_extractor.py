@@ -16,12 +16,18 @@ from webdriver_manager.chrome import ChromeDriverManager
 import json
 import re
 import sys
-from ..calculators.weighted_payment_calculator import WeightedPaymentCalculator
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'calculators'))
+from weighted_payment_calculator import WeightedPaymentCalculator
 
-def setup_driver():
+def setup_driver(headless=True):
     """Set up Chrome driver with appropriate options"""
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    if headless:
+        chrome_options.add_argument("--headless")
+    else:
+        chrome_options.add_argument("--no-headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
@@ -468,9 +474,9 @@ def extract_amortization_table_data(driver):
         print(f"Error extracting data: {e}")
         return {"tables": [], "text": "", "currencyAmounts": [], "percentages": [], "summary": {}, "pageTitle": "", "url": "", "structuredData": {"monthlyPayments": [], "totalPayments": 0, "totalInterest": 0, "totalPrincipal": 0}}
 
-def extract_mortgage_data(loan_amount="1000000", interest_rate="3.5", loan_term="30", cpi_rate="2.0"):
+def extract_mortgage_data(loan_amount="1000000", interest_rate="3.5", loan_term="30", cpi_rate="2.0",headless=True):
     """Extract mortgage data from תמהיל 1 and לוח סילוקין מלא"""
-    driver = setup_driver()
+    driver = setup_driver(headless)
     
     try:
         print("Loading mortgage calculator page...")

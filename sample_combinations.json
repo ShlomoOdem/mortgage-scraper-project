@@ -1,0 +1,26 @@
+[
+  {
+    "loan_amount": "1000000",
+    "interest_rate": "3.5",
+    "loan_term_months": "360",
+    "cpi_rate": "2.0",
+    "channel": "קבועה צמודה",
+    "amortization": "שפיצר"
+  },
+  {
+    "loan_amount": "1000000",
+    "interest_rate": "3.5",
+    "loan_term_months": "360",
+    "cpi_rate": "2.0",
+    "channel": "קבועה לא צמודה",
+    "amortization": "שפיצר"
+  },
+  {
+    "loan_amount": "1000000",
+    "interest_rate": "4.0",
+    "loan_term_months": "360",
+    "cpi_rate": "2.0",
+    "channel": "פריים",
+    "amortization": "שפיצר"
+  }
+]

@@ -1,0 +1,327 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "guid": "mortgage-profile",
+      "name": "Mortgage Analysis",
+      "background-color": "#2E3440",
+      "foreground-color": "#ECEFF4",
+      "palette": [
+        "#3B4252",
+        "#BF616A",
+        "#A3BE8C",
+        "#EBCB8B",
+        "#81A1C1",
+        "#B48EAD",
+        "#88C0D0",
+        "#ECEFF4",
+        "#4C566A",
+        "#BF616A",
+        "#A3BE8C",
+        "#EBCB8B",
+        "#81A1C1",
+        "#B48EAD",
+        "#8FBCBB",
+        "#ECEFF4"
+      ],
+      "use-system-font": false,
+      "font": "Monospace 10",
+      "scrollback-lines": 10000,
+      "scrollback-unlimited": false,
+      "cursor-shape": 0,
+      "cursor-blink-mode": 0,
+      "title-style": 0,
+      "terminal-title": "",
+      "dynamic-title": true,
+      "use-custom-command": false,
+      "custom-command": "",
+      "use-working-directory": true,
+      "working-directory": "/home/shlomo-dig/Documents/mortgage_scraper",
+      "use-system-command": true,
+      "system-command": ""
+    }
+  ],
+  "layouts": [
+    {
+      "guid": "mortgage-layout",
+      "name": "Mortgage Analysis Layout",
+      "tabs": [
+        {
+          "guid": "mortgage-tab",
+          "title": "Mortgage Analysis",
+          "active": true,
+          "splits": [
+            {
+              "guid": "container-13",
+              "type": "horizontal",
+              "children": [
+                {
+                  "guid": "split-14",
+                  "type": "horizontal",
+                  "children": [
+                    {
+                      "guid": "terminal-14",
+                      "type": "terminal",
+                      "profile": "mortgage-profile",
+                      "title": "Mortgage Analysis: combinations_014.json",
+                      "command": "echo 'Running: combinations_014.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_014.json' --combinations 0; echo 'Press Enter to close...'; read"
+                    }
+                  ]
+                },
+                {
+                  "guid": "container-12",
+                  "type": "horizontal",
+                  "children": [
+                    {
+                      "guid": "split-13",
+                      "type": "horizontal",
+                      "children": [
+                        {
+                          "guid": "terminal-13",
+                          "type": "terminal",
+                          "profile": "mortgage-profile",
+                          "title": "Mortgage Analysis: combinations_013.json",
+                          "command": "echo 'Running: combinations_013.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_013.json' --combinations 0; echo 'Press Enter to close...'; read"
+                        }
+                      ]
+                    },
+                    {
+                      "guid": "container-11",
+                      "type": "horizontal",
+                      "children": [
+                        {
+                          "guid": "split-12",
+                          "type": "horizontal",
+                          "children": [
+                            {
+                              "guid": "terminal-12",
+                              "type": "terminal",
+                              "profile": "mortgage-profile",
+                              "title": "Mortgage Analysis: combinations_012.json",
+                              "command": "echo 'Running: combinations_012.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_012.json' --combinations 0; echo 'Press Enter to close...'; read"
+                            }
+                          ]
+                        },
+                        {
+                          "guid": "container-10",
+                          "type": "horizontal",
+                          "children": [
+                            {
+                              "guid": "split-11",
+                              "type": "horizontal",
+                              "children": [
+                                {
+                                  "guid": "terminal-11",
+                                  "type": "terminal",
+                                  "profile": "mortgage-profile",
+                                  "title": "Mortgage Analysis: combinations_011.json",
+                                  "command": "echo 'Running: combinations_011.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_011.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                }
+                              ]
+                            },
+                            {
+                              "guid": "container-9",
+                              "type": "horizontal",
+                              "children": [
+                                {
+                                  "guid": "split-10",
+                                  "type": "horizontal",
+                                  "children": [
+                                    {
+                                      "guid": "terminal-10",
+                                      "type": "terminal",
+                                      "profile": "mortgage-profile",
+                                      "title": "Mortgage Analysis: combinations_010.json",
+                                      "command": "echo 'Running: combinations_010.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_010.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "guid": "container-8",
+                                  "type": "horizontal",
+                                  "children": [
+                                    {
+                                      "guid": "split-9",
+                                      "type": "horizontal",
+                                      "children": [
+                                        {
+                                          "guid": "terminal-9",
+                                          "type": "terminal",
+                                          "profile": "mortgage-profile",
+                                          "title": "Mortgage Analysis: combinations_009.json",
+                                          "command": "echo 'Running: combinations_009.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_009.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "guid": "container-7",
+                                      "type": "horizontal",
+                                      "children": [
+                                        {
+                                          "guid": "split-8",
+                                          "type": "horizontal",
+                                          "children": [
+                                            {
+                                              "guid": "terminal-8",
+                                              "type": "terminal",
+                                              "profile": "mortgage-profile",
+                                              "title": "Mortgage Analysis: combinations_008.json",
+                                              "command": "echo 'Running: combinations_008.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_008.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "guid": "container-6",
+                                          "type": "horizontal",
+                                          "children": [
+                                            {
+                                              "guid": "split-7",
+                                              "type": "horizontal",
+                                              "children": [
+                                                {
+                                                  "guid": "terminal-7",
+                                                  "type": "terminal",
+                                                  "profile": "mortgage-profile",
+                                                  "title": "Mortgage Analysis: combinations_007.json",
+                                                  "command": "echo 'Running: combinations_007.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_007.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "guid": "container-5",
+                                              "type": "horizontal",
+                                              "children": [
+                                                {
+                                                  "guid": "split-6",
+                                                  "type": "horizontal",
+                                                  "children": [
+                                                    {
+                                                      "guid": "terminal-6",
+                                                      "type": "terminal",
+                                                      "profile": "mortgage-profile",
+                                                      "title": "Mortgage Analysis: combinations_006.json",
+                                                      "command": "echo 'Running: combinations_006.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_006.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "guid": "container-4",
+                                                  "type": "horizontal",
+                                                  "children": [
+                                                    {
+                                                      "guid": "split-5",
+                                                      "type": "horizontal",
+                                                      "children": [
+                                                        {
+                                                          "guid": "terminal-5",
+                                                          "type": "terminal",
+                                                          "profile": "mortgage-profile",
+                                                          "title": "Mortgage Analysis: combinations_005.json",
+                                                          "command": "echo 'Running: combinations_005.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_005.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "guid": "container-3",
+                                                      "type": "horizontal",
+                                                      "children": [
+                                                        {
+                                                          "guid": "split-4",
+                                                          "type": "horizontal",
+                                                          "children": [
+                                                            {
+                                                              "guid": "terminal-4",
+                                                              "type": "terminal",
+                                                              "profile": "mortgage-profile",
+                                                              "title": "Mortgage Analysis: combinations_004.json",
+                                                              "command": "echo 'Running: combinations_004.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_004.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "guid": "container-2",
+                                                          "type": "horizontal",
+                                                          "children": [
+                                                            {
+                                                              "guid": "split-3",
+                                                              "type": "horizontal",
+                                                              "children": [
+                                                                {
+                                                                  "guid": "terminal-3",
+                                                                  "type": "terminal",
+                                                                  "profile": "mortgage-profile",
+                                                                  "title": "Mortgage Analysis: combinations_003.json",
+                                                                  "command": "echo 'Running: combinations_003.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_003.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                                }
+                                                              ]
+                                                            },
+                                                            {
+                                                              "guid": "container-1",
+                                                              "type": "horizontal",
+                                                              "children": [
+                                                                {
+                                                                  "guid": "split-2",
+                                                                  "type": "horizontal",
+                                                                  "children": [
+                                                                    {
+                                                                      "guid": "terminal-2",
+                                                                      "type": "terminal",
+                                                                      "profile": "mortgage-profile",
+                                                                      "title": "Mortgage Analysis: combinations_002.json",
+                                                                      "command": "echo 'Running: combinations_002.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_002.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "guid": "split-1",
+                                                                  "type": "horizontal",
+                                                                  "children": [
+                                                                    {
+                                                                      "guid": "terminal-1",
+                                                                      "type": "terminal",
+                                                                      "profile": "mortgage-profile",
+                                                                      "title": "Mortgage Analysis: combinations_001.json",
+                                                                      "command": "echo 'Running: combinations_001.json' && python3 run_modular_workflow.py --full --combination-file 'data/combinations_001.json' --combinations 0; echo 'Press Enter to close...'; read"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sessions": [
+    {
+      "guid": "mortgage-session",
+      "name": "Mortgage Analysis Session",
+      "layout-guid": "mortgage-layout",
+      "active-tab": "mortgage-tab"
+    }
+  ]
+}

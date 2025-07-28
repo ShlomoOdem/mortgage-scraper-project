@@ -1,0 +1,20 @@
+Parameter,Value
+Loan Type,זכאות
+Interest Rate (%),6.0
+Loan Term (months),300
+Inflation Rate (%),1.8
+Loan Amount,1000000
+Channel,זכאות
+Amortization Method,קרן שווה
+Total Monthly Payments,300
+Total Mortgage Interest,880097.23
+Extraction Timestamp,20250727_182859
+Monthly Income,"12,000.00"
+Total Investment Amount,"1,456,269.05"
+Total Investment Final Value,"3,624,026.14"
+Total Investment Profit After Tax,"1,160,488.93"
+Effective Annual Return After Tax,3.25%
+Weighted Monthly Payment (30 years),"9,281.01"
+Weighted Cost (should be ~0),0.24
+Weighted Investment Profit,"1,143,731.18"
+Weighted Calculation Converged,Yes

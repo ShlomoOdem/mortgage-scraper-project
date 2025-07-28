@@ -1,0 +1,704 @@
+{
+  "1000000_4.0_360_2.0_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "4.0",
+      "loan_term_months": "360",
+      "cpi_rate": "2.0",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:38:24.772230",
+    "filename": "loan_פריים_int_4.0_term_360_infl_2.0"
+  },
+  "1000000_2.75_156_1.0_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:46:57.141603",
+    "filename": "loan_קבועה לא צמודה_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_2.75_156_1.0_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:06.462263",
+    "filename": "loan_קבועה לא צמודה_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_5.5_84_4.0_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.5",
+      "loan_term_months": "84",
+      "cpi_rate": "4.0",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:07.858831",
+    "filename": "loan_קבועה לא צמודה_int_5.5_term_84_infl_4.0"
+  },
+  "1000000_2.75_156_1.0_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:14.478646",
+    "filename": "loan_פריים_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_2.75_156_1.0_פריים_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "פריים",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:23.015218",
+    "filename": "loan_פריים_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_3.0_132_1.8_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:32.482607",
+    "filename": "loan_קבועה צמודה_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_3.0_132_1.8_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:40.283933",
+    "filename": "loan_קבועה צמודה_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_5.5_84_4.0_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.5",
+      "loan_term_months": "84",
+      "cpi_rate": "4.0",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:45.175956",
+    "filename": "loan_קבועה לא צמודה_int_5.5_term_84_infl_4.0"
+  },
+  "1000000_3.0_132_1.8_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:48.318008",
+    "filename": "loan_קבועה לא צמודה_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_5.0_60_2.5_משתנה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "משתנה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:53.700397",
+    "filename": "loan_משתנה צמודה_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_3.0_132_1.8_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:47:55.999153",
+    "filename": "loan_קבועה לא צמודה_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_5.0_60_2.5_משתנה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "משתנה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:01.193016",
+    "filename": "loan_משתנה צמודה_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_2.75_156_1.0_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:01.372755",
+    "filename": "loan_זכאות_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_3.0_132_1.8_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:03.789371",
+    "filename": "loan_פריים_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_3.25_120_2.5_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "120",
+      "cpi_rate": "2.5",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:04.934107",
+    "filename": "loan_זכאות_int_3.25_term_120_infl_2.5"
+  },
+  "1000000_5.0_60_2.5_משתנה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "משתנה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:09.012213",
+    "filename": "loan_משתנה לא צמודה_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_2.75_156_1.0_זכאות_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "156",
+      "cpi_rate": "1.0",
+      "channel": "זכאות",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:09.398885",
+    "filename": "loan_זכאות_int_2.75_term_156_infl_1.0"
+  },
+  "1000000_3.0_132_1.8_פריים_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "פריים",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:11.925525",
+    "filename": "loan_פריים_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_6.0_72_1.5_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "6.0",
+      "loan_term_months": "72",
+      "cpi_rate": "1.5",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:12.541567",
+    "filename": "loan_קבועה צמודה_int_6.0_term_72_infl_1.5"
+  },
+  "1000000_3.25_120_2.5_זכאות_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "120",
+      "cpi_rate": "2.5",
+      "channel": "זכאות",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:13.046288",
+    "filename": "loan_זכאות_int_3.25_term_120_infl_2.5"
+  },
+  "1000000_5.0_60_2.5_משתנה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "משתנה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:17.078649",
+    "filename": "loan_משתנה לא צמודה_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_2.75_168_1.0_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "168",
+      "cpi_rate": "1.0",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:17.580653",
+    "filename": "loan_קבועה צמודה_int_2.75_term_168_infl_1.0"
+  },
+  "1000000_2.0_216_2.8_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.0",
+      "loan_term_months": "216",
+      "cpi_rate": "2.8",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:19.316668",
+    "filename": "loan_קבועה לא צמודה_int_2.0_term_216_infl_2.8"
+  },
+  "1000000_4.25_96_1.5_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "4.25",
+      "loan_term_months": "96",
+      "cpi_rate": "1.5",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:20.157628",
+    "filename": "loan_פריים_int_4.25_term_96_infl_1.5"
+  },
+  "1000000_6.0_72_1.5_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "6.0",
+      "loan_term_months": "72",
+      "cpi_rate": "1.5",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:20.832792",
+    "filename": "loan_קבועה צמודה_int_6.0_term_72_infl_1.5"
+  },
+  "1000000_3.25_132_2.5_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "132",
+      "cpi_rate": "2.5",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:21.226018",
+    "filename": "loan_קבועה צמודה_int_3.25_term_132_infl_2.5"
+  },
+  "1000000_5.5_84_4.0_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.5",
+      "loan_term_months": "84",
+      "cpi_rate": "4.0",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:22.185830",
+    "filename": "loan_פריים_int_5.5_term_84_infl_4.0"
+  },
+  "1000000_5.25_72_3.2_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.25",
+      "loan_term_months": "72",
+      "cpi_rate": "3.2",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:25.348416",
+    "filename": "loan_זכאות_int_5.25_term_72_infl_3.2"
+  },
+  "1000000_5.0_60_2.5_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:25.373951",
+    "filename": "loan_זכאות_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_2.0_216_2.8_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.0",
+      "loan_term_months": "216",
+      "cpi_rate": "2.8",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:28.157309",
+    "filename": "loan_קבועה לא צמודה_int_2.0_term_216_infl_2.8"
+  },
+  "1000000_4.25_96_1.5_פריים_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "4.25",
+      "loan_term_months": "96",
+      "cpi_rate": "1.5",
+      "channel": "פריים",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:29.312362",
+    "filename": "loan_פריים_int_4.25_term_96_infl_1.5"
+  },
+  "1000000_6.0_72_1.5_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "6.0",
+      "loan_term_months": "72",
+      "cpi_rate": "1.5",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:29.583086",
+    "filename": "loan_קבועה לא צמודה_int_6.0_term_72_infl_1.5"
+  },
+  "1000000_3.25_132_2.5_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "132",
+      "cpi_rate": "2.5",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:30.087473",
+    "filename": "loan_קבועה צמודה_int_3.25_term_132_infl_2.5"
+  },
+  "1000000_5.5_84_4.0_פריים_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.5",
+      "loan_term_months": "84",
+      "cpi_rate": "4.0",
+      "channel": "פריים",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:30.663373",
+    "filename": "loan_פריים_int_5.5_term_84_infl_4.0"
+  },
+  "1000000_5.25_72_3.2_זכאות_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.25",
+      "loan_term_months": "72",
+      "cpi_rate": "3.2",
+      "channel": "זכאות",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:33.660972",
+    "filename": "loan_זכאות_int_5.25_term_72_infl_3.2"
+  },
+  "1000000_5.0_60_2.5_זכאות_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "60",
+      "cpi_rate": "2.5",
+      "channel": "זכאות",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:33.683899",
+    "filename": "loan_זכאות_int_5.0_term_60_infl_2.5"
+  },
+  "1000000_3.5_96_3.2_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.5",
+      "loan_term_months": "96",
+      "cpi_rate": "3.2",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:34.689910",
+    "filename": "loan_זכאות_int_3.5_term_96_infl_3.2"
+  },
+  "1000000_2.0_216_2.8_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.0",
+      "loan_term_months": "216",
+      "cpi_rate": "2.8",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:36.751028",
+    "filename": "loan_פריים_int_2.0_term_216_infl_2.8"
+  },
+  "1000000_6.0_72_1.5_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "6.0",
+      "loan_term_months": "72",
+      "cpi_rate": "1.5",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:38.533895",
+    "filename": "loan_קבועה לא צמודה_int_6.0_term_72_infl_1.5"
+  },
+  "1000000_3.25_132_2.5_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "132",
+      "cpi_rate": "2.5",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:38.814391",
+    "filename": "loan_קבועה לא צמודה_int_3.25_term_132_infl_2.5"
+  },
+  "1000000_5.0_72_2.5_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "72",
+      "cpi_rate": "2.5",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:42.936904",
+    "filename": "loan_קבועה צמודה_int_5.0_term_72_infl_2.5"
+  },
+  "1000000_5.25_84_3.2_קבועה צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.25",
+      "loan_term_months": "84",
+      "cpi_rate": "3.2",
+      "channel": "קבועה צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:42.944045",
+    "filename": "loan_קבועה צמודה_int_5.25_term_84_infl_3.2"
+  },
+  "1000000_2.0_216_2.8_פריים_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.0",
+      "loan_term_months": "216",
+      "cpi_rate": "2.8",
+      "channel": "פריים",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:45.203607",
+    "filename": "loan_פריים_int_2.0_term_216_infl_2.8"
+  },
+  "1000000_6.0_72_1.5_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "6.0",
+      "loan_term_months": "72",
+      "cpi_rate": "1.5",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:46.994577",
+    "filename": "loan_פריים_int_6.0_term_72_infl_1.5"
+  },
+  "1000000_3.25_132_2.5_קבועה לא צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "132",
+      "cpi_rate": "2.5",
+      "channel": "קבועה לא צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:47.027371",
+    "filename": "loan_קבועה לא צמודה_int_3.25_term_132_infl_2.5"
+  },
+  "1000000_2.25_144_3.5_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.25",
+      "loan_term_months": "144",
+      "cpi_rate": "3.5",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:50.304960",
+    "filename": "loan_זכאות_int_2.25_term_144_infl_3.5"
+  },
+  "1000000_5.25_84_3.2_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.25",
+      "loan_term_months": "84",
+      "cpi_rate": "3.2",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:50.695753",
+    "filename": "loan_קבועה צמודה_int_5.25_term_84_infl_3.2"
+  },
+  "1000000_5.0_72_2.5_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "5.0",
+      "loan_term_months": "72",
+      "cpi_rate": "2.5",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:50.785087",
+    "filename": "loan_קבועה צמודה_int_5.0_term_72_infl_2.5"
+  },
+  "1000000_3.75_96_4.0_קבועה לא צמודה_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.75",
+      "loan_term_months": "96",
+      "cpi_rate": "4.0",
+      "channel": "קבועה לא צמודה",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:53.827949",
+    "filename": "loan_קבועה לא צמודה_int_3.75_term_96_infl_4.0"
+  },
+  "1000000_3.0_132_1.8_זכאות_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.0",
+      "loan_term_months": "132",
+      "cpi_rate": "1.8",
+      "channel": "זכאות",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:54.699454",
+    "filename": "loan_זכאות_int_3.0_term_132_infl_1.8"
+  },
+  "1000000_2.75_168_1.0_קבועה צמודה_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.75",
+      "loan_term_months": "168",
+      "cpi_rate": "1.0",
+      "channel": "קבועה צמודה",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:55.130261",
+    "filename": "loan_קבועה צמודה_int_2.75_term_168_infl_1.0"
+  },
+  "1000000_3.25_132_2.5_פריים_שפיצר": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "3.25",
+      "loan_term_months": "132",
+      "cpi_rate": "2.5",
+      "channel": "פריים",
+      "amortization": "שפיצר"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:55.591265",
+    "filename": "loan_פריים_int_3.25_term_132_infl_2.5"
+  },
+  "1000000_2.25_144_3.5_זכאות_קרן שווה": {
+    "combination": {
+      "loan_amount": "1000000",
+      "interest_rate": "2.25",
+      "loan_term_months": "144",
+      "cpi_rate": "3.5",
+      "channel": "זכאות",
+      "amortization": "קרן שווה"
+    },
+    "extracted": true,
+    "timestamp": "2025-07-27T17:48:58.469346",
+    "filename": "loan_זכאות_int_2.25_term_144_infl_3.5"
+  }
+}

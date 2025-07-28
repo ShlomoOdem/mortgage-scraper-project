@@ -16,7 +16,7 @@ class WeightedPaymentCalculator:
     """
     
     def __init__(self, monthly_payments: List[Dict[str, Any]], loan_amount: float, 
-                 annual_return_rate: float = 0.07, tax_rate: float = 0.25):
+                 annual_return_rate: float = 0.07, annual_inflation_rate: float = 0.00, tax_rate: float = 0.25):
         """
         Initialize the weighted payment calculator.
         
@@ -24,18 +24,21 @@ class WeightedPaymentCalculator:
             monthly_payments: List of monthly payment dictionaries with 'month_payment' key
             loan_amount: Original loan amount
             annual_return_rate: Annual return rate for investments (default 7%)
+            annual_inflation_rate: Annual inflation rate (default 3%)
             tax_rate: Tax rate on investment profits (default 25%)
         """
         self.monthly_payments = monthly_payments
         self.loan_amount = loan_amount
         self.annual_return_rate = annual_return_rate
+        self.annual_inflation_rate = annual_inflation_rate
         self.tax_rate = tax_rate
         self.monthly_return_rate = (1 + annual_return_rate) ** (1/12) - 1
+        self.monthly_inflation_rate = (1 + annual_inflation_rate) ** (1/12) - 1
         self.total_months = len(monthly_payments)
         
         # Calculate total mortgage payments
         self.total_mortgage_payments = sum(payment.get('month_payment', 0) for payment in monthly_payments)
-        self.total_mortgage_interest = self.total_mortgage_payments - self.loan_amount
+        self.total_mortgage_interest_and_inflation = self.total_mortgage_payments - self.loan_amount
         
         # For short-term mortgages, we need to account for the full 30-year period
         # The weighted payment should be calculated for a full 30-year period
@@ -62,12 +65,15 @@ class WeightedPaymentCalculator:
         
         # Calculate final value with compound interest
         final_value = investment_amount * ((1 + self.monthly_return_rate) ** months_growing)
-        
+        inflation_adjusted_amount = investment_amount * ((1 + self.monthly_inflation_rate) ** months_growing)
         # Calculate profit and tax
-        profit = final_value - investment_amount
-        tax = profit * self.tax_rate if profit > 0 else 0
-        profit_after_tax = profit - tax
-        net_value_after_tax = investment_amount + profit_after_tax
+        profit_before_inflation = final_value - investment_amount
+        profit_after_inflation = final_value - inflation_adjusted_amount
+        tax = profit_after_inflation * self.tax_rate if profit_after_inflation > 0 else 0
+        
+        profit_after_tax = profit_before_inflation - tax
+        
+        net_value_after_tax = final_value - tax
         
         return {
             'investment_amount': investment_amount,
@@ -114,11 +120,11 @@ class WeightedPaymentCalculator:
             total_investment_profit += investment_result['profit_after_tax']
         
         # Weighted cost = investment_profit - mortgage_interest
-        weighted_cost = total_investment_profit - self.total_mortgage_interest
+        weighted_cost = total_investment_profit - self.total_mortgage_interest_and_inflation
         
         return weighted_cost
     
-    def calculate_weighted_payment(self, tolerance: float = 1.0, max_iterations: int = 50) -> Dict[str, Any]:
+    def calculate_weighted_payment(self, tolerance: float = 1.0, max_iterations: int = 10000) -> Dict[str, Any]:
         """
         Calculate the weighted monthly payment using binary search optimization.
         
@@ -141,13 +147,9 @@ class WeightedPaymentCalculator:
             estimated_monthly_payment = self.loan_amount / 360  # Principal only
             min_payment = estimated_monthly_payment * 0.5  # Lower bound
             max_payment = estimated_monthly_payment * 3.0  # Upper bound (accounts for interest)
-        
+        min_payment = 0
+        max_payment = self.loan_amount
         # Ensure we have reasonable bounds
-        if min_payment <= 0:
-            min_payment = 1000  # Minimum reasonable payment
-        
-        if max_payment <= min_payment:
-            max_payment = min_payment * 5
         
         print(f"Searching for weighted payment between {min_payment:.2f} and {max_payment:.2f} NIS")
         
@@ -157,7 +159,7 @@ class WeightedPaymentCalculator:
             weighted_cost = self._calculate_weighted_cost(weighted_payment)
             
             # Only print every 10th iteration to reduce output
-            if iteration % 10 == 0 or iteration < 5:
+            if iteration % 10 == 0 or iteration < 30:
                 print(f"Iteration {iteration + 1}: weighted_payment={weighted_payment:.2f}, cost={weighted_cost:.2f}")
             
             # Check if we've converged
@@ -168,22 +170,22 @@ class WeightedPaymentCalculator:
             # Update bounds
             if weighted_cost > 0:
                 # Cost is positive, need to increase weighted payment
-                min_payment = weighted_payment
+                max_payment = weighted_payment
             else:
                 # Cost is negative, need to decrease weighted payment
-                max_payment = weighted_payment
+                min_payment = weighted_payment
         
         # Final calculation with the converged weighted payment
         final_weighted_cost = self._calculate_weighted_cost(weighted_payment)
         
         # Calculate additional metrics
-        total_investment_profit = final_weighted_cost + self.total_mortgage_interest
+        total_investment_profit = final_weighted_cost + self.total_mortgage_interest_and_inflation
         
         return {
             'weighted_monthly_payment': weighted_payment,
             'weighted_cost': final_weighted_cost,
             'total_mortgage_payments': self.total_mortgage_payments,
-            'total_mortgage_interest': self.total_mortgage_interest,
+            'total_mortgage_interest_and_inflation': self.total_mortgage_interest_and_inflation,
             'total_investment_profit': total_investment_profit,
             'loan_amount': self.loan_amount,
             'iterations': iteration + 1,

@@ -21,8 +21,14 @@ from webdriver_manager.chrome import ChromeDriverManager
 from urllib.parse import unquote
 
 # Import the investment class
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'calculators'))
 from invesment import StockInvestment
-from ..calculators.weighted_payment_calculator import WeightedPaymentCalculator
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'calculators'))
+from weighted_payment_calculator import WeightedPaymentCalculator
 
 def get_combination_key(combination):
     """Generate a unique key for a mortgage combination"""
@@ -83,7 +89,7 @@ def setup_driver(headless=True):
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
-def wait_for_page_load(driver, timeout=5):
+def wait_for_page_load(driver, timeout=10):
     """Wait for the page to be fully loaded and the calculator form to be ready"""
     print("Waiting for page to load...")
     try:
@@ -151,7 +157,7 @@ def try_trigger_calculations(driver):
     
     try:
         # Wait a moment for any dynamic content to load
-        time.sleep(2)
+        time.sleep(1)
         
         # Store the original window handle
         original_window = driver.current_window_handle
@@ -188,62 +194,7 @@ def try_trigger_calculations(driver):
         except Exception as e:
             print(f"Amortization form not found or not clickable: {e}")
         
-        # Fallback: Look for any form with cp_programs input
-        try:
-            forms_with_cp = driver.find_elements(By.CSS_SELECTOR, 'form input[name="cp_programs"]')
-            if forms_with_cp:
-                print(f"Found {len(forms_with_cp)} forms with cp_programs input")
-                for form_input in forms_with_cp:
-                    try:
-                        form = form_input.find_element(By.XPATH, './..')  # Get parent form
-                        if form.is_displayed():
-                            print("Clicking form with cp_programs input...")
-                            form.click()
-                            time.sleep(2)
-                            
-                            # Check for new tabs and close them
-                            all_windows = driver.window_handles
-                            if len(all_windows) > 1:
-                                print(f"New tab detected. Closing {len(all_windows) - 1} additional tab(s)...")
-                                for window_handle in all_windows:
-                                    if window_handle != original_window:
-                                        driver.switch_to.window(window_handle)
-                                        driver.close()
-                                driver.switch_to.window(original_window)
-                                print("Returned to original tab")
-                            
-                            return True
-                    except Exception as e:
-                        print(f"Failed to click form: {e}")
-        except Exception as e:
-            print(f"Error looking for forms with cp_programs: {e}")
         
-        # Additional fallback: Look for elements containing "לוח סילוקין"
-        try:
-            elements_with_text = driver.find_elements(By.XPATH, "//*[contains(text(), 'לוח סילוקין')]")
-            for element in elements_with_text:
-                if element.is_displayed() and element.is_enabled():
-                    print("Found element with 'לוח סילוקין' text, clicking it...")
-                    element.click()
-                    time.sleep(2)
-                    
-                    # Check for new tabs and close them
-                    all_windows = driver.window_handles
-                    if len(all_windows) > 1:
-                        print(f"New tab detected. Closing {len(all_windows) - 1} additional tab(s)...")
-                        for window_handle in all_windows:
-                            if window_handle != original_window:
-                                driver.switch_to.window(window_handle)
-                                driver.close()
-                        driver.switch_to.window(original_window)
-                        print("Returned to original tab")
-                    
-                    return True
-        except Exception as e:
-            print(f"Error looking for elements with text: {e}")
-        
-        print("No calculation triggers found")
-        return False
         
     except Exception as e:
         print(f"Error trying to trigger calculations: {e}")
@@ -478,64 +429,7 @@ def extract_cp_programs_value(driver):
         print(f"Error extracting cp_programs value: {e}")
         return None
 
-def calculate_investment_data(monthly_payments, annual_return_rate=0.07, annual_inflation_rate=0.03, tax_rate=0.25):
-    """Calculate investment data for each monthly payment"""
-    print("Calculating investment data...")
-    
-    # Monthly income is 1200
-    monthly_income = 1200
-    
-    # Calculate investment amounts (income - mortgage payment)
-    investment_amounts = []
-    for payment in monthly_payments:
-        monthly_payment = payment.get('month_payment', 0)
-        investment_amount = max(0, monthly_income - monthly_payment)  # Can't invest negative amount
-        investment_amounts.append(investment_amount)
-    
-    # Create investment calculator
-    investment = StockInvestment(
-        monthly_investments=investment_amounts,
-        annual_return_rate=annual_return_rate,
-        annual_inflation_rate=annual_inflation_rate,
-        tax_rate=tax_rate
-    )
-    
-    # Get investment details for each month
-    investment_details = investment.get_summary()['monthly_details']
-    
-    # Add investment data to each monthly payment
-    enhanced_payments = []
-    for i, payment in enumerate(monthly_payments):
-        if i < len(investment_details):
-            investment_detail = investment_details[i]
-            enhanced_payment = payment.copy()
-            enhanced_payment['monthly_income'] = monthly_income
-            enhanced_payment['monthly_investment'] = investment_detail['investment_amount']
-            enhanced_payment['investment_final_value'] = investment_detail['final_value']
-            enhanced_payment['investment_profit_after_tax'] = investment_detail['profit_after_tax']
-            enhanced_payment['investment_net_value_after_tax'] = investment_detail['net_value_after_tax']
-            enhanced_payments.append(enhanced_payment)
-        else:
-            enhanced_payments.append(payment)
-    
-    # Calculate weighted monthly payment
-    print("Calculating weighted monthly payment...")
-    loan_amount = sum(payment.get('principal', 0) for payment in monthly_payments)
-    if loan_amount == 0:
-        # Fallback: estimate loan amount from first payment
-        first_payment = monthly_payments[0] if monthly_payments else {}
-        loan_amount = first_payment.get('month_payment', 0) * len(monthly_payments) * 0.8  # Rough estimate
-    
-    weighted_calculator = WeightedPaymentCalculator(
-        monthly_payments=monthly_payments,
-        loan_amount=loan_amount,
-        annual_return_rate=annual_return_rate,
-        tax_rate=tax_rate
-    )
-    
-    weighted_result = weighted_calculator.calculate_weighted_payment()
-    
-    return enhanced_payments, investment.get_summary(), weighted_result
+
 
 def parse_cp_programs_data(cp_programs_value):
     """Parse the cp_programs value into structured data"""
@@ -562,15 +456,10 @@ def parse_cp_programs_data(cp_programs_value):
                 input_data = first_program.get('input_data', {})
                 monthly_payments = programs
                 
-                # Calculate investment data
-                enhanced_payments, investment_summary, weighted_result = calculate_investment_data(monthly_payments)
-                
                 return {
                     'input_data': input_data,
-                    'monthly_payments': enhanced_payments,
-                    'total_payments': len(enhanced_payments),
-                    'investment_summary': investment_summary,
-                    'weighted_result': weighted_result
+                    'monthly_payments': monthly_payments,
+                    'total_payments': len(monthly_payments)
                 }
         
         return data
@@ -587,7 +476,9 @@ def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linke
     base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}"
     
     # Save monthly payments as CSV in payments_files folder
-    payments_filename = os.path.join("payments_files", f"{base_filename}_payments.csv")
+    payments_filename = os.path.join("data", "raw", "payments_files", f"{base_filename}_payments.csv")
+    os.makedirs(os.path.dirname(payments_filename), exist_ok=True)
+    
     if parsed_data and 'monthly_payments' in parsed_data and parsed_data['monthly_payments']:
         with open(payments_filename, 'w', newline='', encoding='utf-8') as f:
             fieldnames = parsed_data['monthly_payments'][0].keys()
@@ -601,7 +492,9 @@ def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linke
         print("No monthly payments data to save")
     
     # Save summary as CSV in summary_files folder
-    summary_filename = os.path.join("summary_files", f"{base_filename}_summary.csv")
+    summary_filename = os.path.join("data", "raw", "summary_files", f"{base_filename}_summary.csv")
+    os.makedirs(os.path.dirname(summary_filename), exist_ok=True)
+    
     if parsed_data:
         with open(summary_filename, 'w', newline='', encoding='utf-8') as f:
             # Create summary data
@@ -655,61 +548,6 @@ def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linke
                 'Parameter': 'Total Mortgage Interest',
                 'Value': f"{total_mortgage_interest:.2f}"
             })
-            
-            # Add investment summary
-            if 'investment_summary' in parsed_data:
-                inv_summary = parsed_data['investment_summary']
-                summary_data.append({
-                    'Parameter': 'Total Investment Amount',
-                    'Value': f"{inv_summary.get('total_invested', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Total Investment Final Value',
-                    'Value': f"{inv_summary.get('total_final_value', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Total Investment Profit',
-                    'Value': f"{inv_summary.get('total_real_profit', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Total Investment Taxes',
-                    'Value': f"{inv_summary.get('total_taxes', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Total Investment Profit After Tax',
-                    'Value': f"{inv_summary.get('total_profit_after_tax', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Total Investment Net Value After Tax',
-                    'Value': f"{inv_summary.get('total_net_value_after_tax', 0):.2f}"
-                })
-                
-                # Calculate total cost (mortgage interest - investment profit after tax)
-                total_cost = total_mortgage_interest - inv_summary.get('total_profit_after_tax', 0)
-                summary_data.append({
-                    'Parameter': 'Total Cost (Interest - Investment Profit)',
-                    'Value': f"{total_cost:.2f}"
-                })
-            
-            # Add weighted payment data
-            if 'weighted_result' in parsed_data:
-                weighted = parsed_data['weighted_result']
-                summary_data.append({
-                    'Parameter': 'Weighted Monthly Payment (30 years)',
-                    'Value': f"{weighted.get('weighted_monthly_payment', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Weighted Cost (should be ~0)',
-                    'Value': f"{weighted.get('weighted_cost', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Weighted Investment Profit',
-                    'Value': f"{weighted.get('total_investment_profit', 0):.2f}"
-                })
-                summary_data.append({
-                    'Parameter': 'Weighted Calculation Converged',
-                    'Value': 'Yes' if weighted.get('converged', False) else 'No'
-                })
             
             summary_data.append({
                 'Parameter': 'Extraction Timestamp',
@@ -788,7 +626,7 @@ def extract_cp_programs_automated(driver, loan_amount="1000000", interest_rate="
         print(f"Error during extraction: {e}")
         return None
 
-def extract_multiple_combinations(loan_combinations, headless=True, tracking_file="processed_combinations.json"):
+def extract_multiple_combinations(loan_combinations, headless=True):
     """Extract data for multiple loan combinations using a single driver"""
     driver = None
     results = []
@@ -797,16 +635,6 @@ def extract_multiple_combinations(loan_combinations, headless=True, tracking_fil
         print("Starting batch extraction...")
         print(f"Total combinations to process: {len(loan_combinations)}")
         
-        # Filter out already processed combinations
-        unprocessed_combinations, already_processed_count = filter_unprocessed_combinations(loan_combinations, tracking_file)
-        
-        if already_processed_count > 0:
-            print(f"Found {already_processed_count} already processed combinations, skipping them...")
-            print(f"Remaining combinations to process: {len(unprocessed_combinations)}")
-        
-        if not unprocessed_combinations:
-            print("All combinations have already been processed!")
-            return []
         
         # Setup driver once
         driver = setup_driver(headless)
@@ -816,14 +644,10 @@ def extract_multiple_combinations(loan_combinations, headless=True, tracking_fil
         print(f"Navigating to: {url}")
         driver.get(url)
         
-        # Wait for page to load
-        if not wait_for_page_load(driver):
-            print("Failed to load page")
-            return None
         
         # Process each combination
-        for i, combo in enumerate(unprocessed_combinations, 1):
-            print(f"\nProcessing combination {i}/{len(unprocessed_combinations)}")
+        for i, combo in enumerate(loan_combinations, 1):
+            print(f"\nProcessing combination {i}/{len(loan_combinations)}")
             
             loan_amount = combo.get('loan_amount', '1000000')
             interest_rate = combo.get('interest_rate', '3.5')
@@ -843,8 +667,7 @@ def extract_multiple_combinations(loan_combinations, headless=True, tracking_fil
                     'status': 'success'
                 })
                 print(f"✓ Success: {loan_amount} @ {interest_rate}% for {loan_term_months} months")
-                # Mark as processed only if successful
-                mark_combination_as_processed(combo, tracking_file)
+
             else:
                 results.append({
                     'combination': combo,
@@ -855,7 +678,7 @@ def extract_multiple_combinations(loan_combinations, headless=True, tracking_fil
                 # Don't mark failed combinations as processed so they can be retried
             
             # Small delay between combinations
-            time.sleep(0.1)
+            time.sleep(0.2)
         
         print(f"\nBatch extraction completed!")
         print(f"Successful: {sum(1 for r in results if r['status'] == 'success')}")

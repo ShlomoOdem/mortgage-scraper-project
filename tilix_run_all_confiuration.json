@@ -1,0 +1,237 @@
+{
+    "child": {
+        "child1": {
+            "child1": {
+                "child1": {
+                    "child1": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_012.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_012.json",
+                        "type": "Terminal",
+                        "uuid": "b9d12dd5-89ba-4baa-a4d7-dbb6602672ab",
+                        "width": 462
+                    },
+                    "child2": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_008.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_008.json",
+                        "type": "Terminal",
+                        "uuid": "990ba981-2a0c-4f71-bc42-83dad72be308",
+                        "width": 462
+                    },
+                    "orientation": 0,
+                    "position": 24,
+                    "ratio": 0.499459459459459465,
+                    "type": "Paned"
+                },
+                "child2": {
+                    "child1": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_006.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_006.json",
+                        "type": "Terminal",
+                        "uuid": "cf5399bf-f1d5-478a-adc5-b3c8fff56c09",
+                        "width": 462
+                    },
+                    "child2": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_014.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_014.json",
+                        "type": "Terminal",
+                        "uuid": "83be3621-7f4a-4147-8657-7849a7865a68",
+                        "width": 462
+                    },
+                    "orientation": 0,
+                    "position": 24,
+                    "ratio": 0.499459459459459465,
+                    "type": "Paned"
+                },
+                "orientation": 1,
+                "position": 24,
+                "ratio": 0.499111900532859698,
+                "type": "Paned"
+            },
+            "child2": {
+                "child1": {
+                    "child1": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_007.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_007.json",
+                        "type": "Terminal",
+                        "uuid": "b1d66ae6-589c-4e33-98b3-d45e934e405e",
+                        "width": 462
+                    },
+                    "child2": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_011.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_011.json",
+                        "type": "Terminal",
+                        "uuid": "4889b88a-4f97-46e4-a8c0-f57d307461da",
+                        "width": 461
+                    },
+                    "orientation": 0,
+                    "position": 24,
+                    "ratio": 0.5,
+                    "type": "Paned"
+                },
+                "child2": {
+                    "child1": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_001.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_001.json",
+                        "type": "Terminal",
+                        "uuid": "7fa10d26-95ef-460c-9559-4188f4f8cdb3",
+                        "width": 462
+                    },
+                    "child2": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_005.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_005.json",
+                        "type": "Terminal",
+                        "uuid": "12ac46e8-d04a-4413-8275-69840c02da08",
+                        "width": 461
+                    },
+                    "orientation": 0,
+                    "position": 24,
+                    "ratio": 0.5,
+                    "type": "Paned"
+                },
+                "orientation": 1,
+                "position": 24,
+                "ratio": 0.499111900532859698,
+                "type": "Paned"
+            },
+            "orientation": 0,
+            "position": 50,
+            "ratio": 0.5,
+            "type": "Paned"
+        },
+        "child2": {
+            "child1": {
+                "child1": {
+                    "child1": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_004.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_004.json",
+                        "type": "Terminal",
+                        "uuid": "5e5ed206-57a0-471d-a91c-9349441a3968",
+                        "width": 462
+                    },
+                    "child2": {
+                        "directory": "",
+                        "height": 281,
+                        "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_010.sh'",
+                        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                        "readOnly": false,
+                        "synchronizedInput": true,
+                        "title": "Mortgage Analysis: combinations_010.json",
+                        "type": "Terminal",
+                        "uuid": "14a88946-de00-438a-bf46-dc944d1fe827",
+                        "width": 462
+                    },
+                    "orientation": 0,
+                    "position": 24,
+                    "ratio": 0.499459459459459465,
+                    "type": "Paned"
+                },
+                "child2": {
+                    "directory": "",
+                    "height": 280,
+                    "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_013.sh'",
+                    "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                    "readOnly": false,
+                    "synchronizedInput": true,
+                    "title": "Mortgage Analysis: combinations_013.json",
+                    "type": "Terminal",
+                    "uuid": "ecdbd9ba-3b64-4c85-8974-844fdb2c25b7",
+                    "width": 925
+                },
+                "orientation": 1,
+                "position": 24,
+                "ratio": 0.5,
+                "type": "Paned"
+            },
+            "child2": {
+                "child1": {
+                    "directory": "",
+                    "height": 281,
+                    "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_009.sh'",
+                    "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                    "readOnly": false,
+                    "synchronizedInput": true,
+                    "title": "Mortgage Analysis: combinations_009.json",
+                    "type": "Terminal",
+                    "uuid": "77e0d664-8658-40b7-b23f-a54865caaa9e",
+                    "width": 924
+                },
+                "child2": {
+                    "directory": "",
+                    "height": 280,
+                    "overrideCommand": "bash '\/tmp\/mortgage_analysis_combinations_002.sh'",
+                    "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+                    "readOnly": false,
+                    "synchronizedInput": true,
+                    "title": "Mortgage Analysis: combinations_002.json",
+                    "type": "Terminal",
+                    "uuid": "418c4e4b-8485-4159-b004-2df4d9e5b270",
+                    "width": 924
+                },
+                "orientation": 1,
+                "position": 24,
+                "ratio": 0.5,
+                "type": "Paned"
+            },
+            "orientation": 0,
+            "position": 50,
+            "ratio": 0.5,
+            "type": "Paned"
+        },
+        "orientation": 1,
+        "position": 50,
+        "ratio": 0.5,
+        "type": "Paned"
+    },
+    "height": 1126,
+    "name": "${title}",
+    "synchronizedInput": false,
+    "type": "Session",
+    "uuid": "3487a3c1-0617-4b69-a48e-5f7fa4b16017",
+    "version": "1.0",
+    "width": 1850
+}

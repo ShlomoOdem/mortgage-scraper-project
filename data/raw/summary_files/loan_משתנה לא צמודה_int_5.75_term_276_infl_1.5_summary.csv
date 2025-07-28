@@ -1,0 +1,11 @@
+Parameter,Value
+Loan Type,משתנה לא צמודה
+Interest Rate (%),5.75
+Loan Term (months),276
+Inflation Rate (%),1.5
+Loan Amount,1000000
+Channel,פריים
+Amortization Method,קרן שווה
+Total Monthly Payments,276
+Total Mortgage Interest,663645.83
+Extraction Timestamp,20250727_190354

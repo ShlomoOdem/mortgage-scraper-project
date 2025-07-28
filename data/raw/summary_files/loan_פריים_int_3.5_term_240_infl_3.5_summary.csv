@@ -1,0 +1,11 @@
+Parameter,Value
+Loan Type,פריים
+Interest Rate (%),3.5
+Loan Term (months),240
+Inflation Rate (%),3.5
+Loan Amount,1000000
+Channel,פריים
+Amortization Method,קרן שווה
+Total Monthly Payments,240
+Total Mortgage Interest,351458.33
+Extraction Timestamp,20250727_182243

@@ -22,54 +22,64 @@ class StockInvestment:
         # Calculate all investment details
         self._calculate_all_investments()
     
+    def _calculate_single_investment(self, month, investment_amount):
+        """Calculate details for a single monthly investment.
+        
+        Args:
+            month (int): Month number (1-based)
+            investment_amount (float): Amount invested in this month
+        
+        Returns:
+            dict: Investment details for this month
+        """
+        # Calculate months growing (how long this investment grows)
+        months_growing = self.total_months - month + 1
+        years_growing = months_growing / 12
+        
+        # Calculate final value with compound interest
+        monthly_rate = self.annual_return_rate / 12
+        final_value = investment_amount * ((1 + monthly_rate) ** months_growing)
+        
+        # Calculate inflation-adjusted amount
+        inflation_adjusted_amount = investment_amount * ((1 + self.annual_inflation_rate) ** years_growing)
+        
+        # Calculate real profit (nominal profit minus inflation)
+        nominal_profit = final_value - investment_amount
+        real_profit = final_value - inflation_adjusted_amount
+            
+            # Calculate taxes on real profit
+        taxes = real_profit * self.tax_rate if real_profit > 0 else 0
+            
+            # Calculate profit after tax
+        profit_after_tax = real_profit - taxes
+            
+            # Calculate net value after tax
+        net_value_after_tax = inflation_adjusted_amount + profit_after_tax
+        
+        # Calculate return multiple
+        return_multiple = final_value / investment_amount
+            
+        return {
+            'month_invested': month,
+                'investment_amount': investment_amount,
+                'months_growing': months_growing,
+            'years_growing': years_growing,
+                'final_value': final_value,
+                'inflation_adjusted_amount': inflation_adjusted_amount,
+            'nominal_profit': nominal_profit,
+                'real_profit': real_profit,
+                'taxes': taxes,
+                'profit_after_tax': profit_after_tax,
+                'net_value_after_tax': net_value_after_tax,
+            'return_multiple': return_multiple
+            }
+            
     def _calculate_all_investments(self):
         """Calculate details for all monthly investments."""
         self.investment_details = []
         
         for month, investment_amount in enumerate(self.monthly_investments, 1):
-            # Calculate months growing (how long this investment grows)
-            months_growing = self.total_months - month + 1
-            years_growing = months_growing / 12
-            
-            # Calculate final value with compound interest
-            monthly_rate = self.annual_return_rate / 12
-            final_value = investment_amount * ((1 + monthly_rate) ** months_growing)
-            
-            # Calculate inflation-adjusted amount
-            inflation_adjusted_amount = investment_amount * ((1 + self.annual_inflation_rate) ** years_growing)
-            
-            # Calculate real profit (nominal profit minus inflation)
-            nominal_profit = final_value - investment_amount
-            real_profit = final_value - inflation_adjusted_amount
-            
-            # Calculate taxes on real profit
-            taxes = real_profit * self.tax_rate if real_profit > 0 else 0
-            
-            # Calculate profit after tax
-            profit_after_tax = real_profit - taxes
-            
-            # Calculate net value after tax
-            net_value_after_tax = inflation_adjusted_amount + profit_after_tax
-            
-            # Calculate return multiple
-            return_multiple = final_value / investment_amount
-            
-            # Store all details
-            detail = {
-                'month_invested': month,
-                'investment_amount': investment_amount,
-                'months_growing': months_growing,
-                'years_growing': years_growing,
-                'final_value': final_value,
-                'inflation_adjusted_amount': inflation_adjusted_amount,
-                'nominal_profit': nominal_profit,
-                'real_profit': real_profit,
-                'taxes': taxes,
-                'profit_after_tax': profit_after_tax,
-                'net_value_after_tax': net_value_after_tax,
-                'return_multiple': return_multiple
-            }
-            
+            detail = self._calculate_single_investment(month, investment_amount)
             self.investment_details.append(detail)
     
     def get_month_details(self, month):
@@ -127,7 +137,7 @@ class StockInvestment:
         """Print a comprehensive summary of all investments."""
         summary = self.get_summary()
         
-        print(f"\n{'INVESTMENT SUMMARY':-^80}")
+        # print(f"\n{'INVESTMENT SUMMARY':-^80}")
         print(f"Total Period: {summary['total_months']} months ({summary['total_months']/12:.1f} years)")
         print(f"Annual Return Rate: {summary['annual_return_rate']:.1%}")
         print(f"Annual Inflation Rate: {summary['annual_inflation_rate']:.1%}")

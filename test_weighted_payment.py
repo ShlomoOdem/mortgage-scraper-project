@@ -40,14 +40,14 @@ def test_weighted_payment():
     print(f"Weighted Monthly Payment: {result['weighted_monthly_payment']:,.2f} NIS")
     print(f"Weighted Cost: {result['weighted_cost']:,.2f} NIS")
     print(f"Total Investment Profit: {result['total_investment_profit']:,.2f} NIS")
-    print(f"Total Mortgage Interest: {result['total_mortgage_interest']:,.2f} NIS")
+    print(f"Total Mortgage Interest and Inflation: {result['total_mortgage_interest_and_inflation']:,.2f} NIS")
     print(f"Calculation Converged: {result['converged']}")
     print(f"Iterations: {result['iterations']}")
     
     # Test monthly breakdown
     print("\nMonthly Breakdown (first 3 months):")
     breakdown = calculator.get_monthly_breakdown(result['weighted_monthly_payment'])
-    for i, month_data in enumerate(breakdown[:3]):
+    for i, month_data in enumerate(breakdown[:]):
         print(f"Month {i+1}:")
         print(f"  Actual Payment: {month_data['actual_payment']:,.2f} NIS")
         print(f"  Weighted Payment: {month_data['weighted_payment']:,.2f} NIS")
