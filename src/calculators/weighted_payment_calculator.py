@@ -159,8 +159,8 @@ class WeightedPaymentCalculator:
             weighted_cost = self._calculate_weighted_cost(weighted_payment)
             
             # Only print every 10th iteration to reduce output
-            if iteration % 10 == 0 or iteration < 30:
-                print(f"Iteration {iteration + 1}: weighted_payment={weighted_payment:.2f}, cost={weighted_cost:.2f}")
+            # if iteration % 10 == 0 or iteration < 30:
+            #     print(f"Iteration {iteration + 1}: weighted_payment={weighted_payment:.2f}, cost={weighted_cost:.2f}")
             
             # Check if we've converged
             if abs(weighted_cost) <= tolerance:
