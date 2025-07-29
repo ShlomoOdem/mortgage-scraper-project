@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Mortgage Plot UI</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .control-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .plot-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .parameter-group {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+        }
+        .parameter-group h6 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .fixed-param-item {
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-create {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-create:hover {
+            background: linear-gradient(45deg, #0056b3, #004085);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+        }
+        .data-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="data-summary">
+            <h4><i class="fas fa-chart-line"></i> Interactive Mortgage Plot UI</h4>
+            <p class="mb-0">
+                <strong>Data Summary:</strong> {{ data_summary.total_records }} records | 
+                Weighted Payment Range: {{ data_summary.weighted_payment_range }} NIS
+            </p>
+        </div>
+
+        <div class="control-panel">
+            <h5><i class="fas fa-cogs"></i> Plot Configuration</h5>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="parameter-group">
+                        <h6>X-Axis Parameter</h6>
+                        <select id="xParam" class="form-select">
+                            <option value="">Select X-Axis Parameter</option>
+                            {% for param in param_info.keys() %}
+                            <option value="{{ param }}">{{ param }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="parameter-group">
+                        <h6>Y-Axis Parameter</h6>
+                        <select id="yParam" class="form-select">
+                            <option value="Weighted Monthly Payment (30 years)" selected>Weighted Monthly Payment (30 years)</option>
+                            {% for param in param_info.keys() %}
+                            {% if param != "Weighted Monthly Payment (30 years)" %}
+                            <option value="{{ param }}">{{ param }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="parameter-group">
+                        <h6>Label Parameter (Optional)</h6>
+                        <select id="labelParam" class="form-select">
+                            <option value="">No Label</option>
+                            {% for param in param_info.keys() %}
+                            <option value="{{ param }}">{{ param }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-group">
+                <h6>Fixed Parameters</h6>
+                <div id="fixedParamsContainer">
+                    <p class="text-muted">Select parameters to fix at specific values</p>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="addFixedParameter()">
+                    <i class="fas fa-plus"></i> Add Fixed Parameter
+                </button>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-create" onclick="createPlot()">
+                    <i class="fas fa-chart-bar"></i> Create Plot
+                </button>
+            </div>
+        </div>
+
+        <div class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Creating plot...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <div class="plot-container">
+            <div id="plotContainer">
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                    <h5>No Plot Generated Yet</h5>
+                    <p>Configure your parameters above and click "Create Plot" to generate your visualization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store parameter information
+        const paramInfo = {{ param_info | tojson }};
+        let fixedParams = {};
+
+        // Initialize the UI
+        $(document).ready(function() {
+            console.log('Interactive Plot UI loaded');
+            console.log('Available parameters:', paramInfo);
+        });
+
+        function addFixedParameter() {
+            const container = document.getElementById('fixedParamsContainer');
+            const paramId = 'fixedParam_' + Date.now();
+            
+            const paramDiv = document.createElement('div');
+            paramDiv.className = 'fixed-param-item';
+            paramDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Parameter</label>
+                        <select class="form-select fixed-param-select" onchange="updateFixedParamValues(this)">
+                            <option value="">Select Parameter</option>
+                            ${Object.keys(paramInfo).map(param => 
+                                `<option value="${param}">${param}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Value</label>
+                        <select class="form-select fixed-param-value" disabled>
+                            <option value="">Select Parameter First</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="button" class="btn btn-outline-danger btn-sm d-block" onclick="removeFixedParameter(this)">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(paramDiv);
+        }
+
+        function updateFixedParamValues(selectElement) {
+            const paramName = selectElement.value;
+            const valueSelect = selectElement.parentElement.parentElement.querySelector('.fixed-param-value');
+            
+            if (paramName && paramInfo[paramName]) {
+                const param = paramInfo[paramName];
+                valueSelect.disabled = false;
+                valueSelect.innerHTML = '<option value="">Select Value</option>';
+                
+                if (param.type === 'numeric') {
+                    // For numeric parameters, show sample values
+                    param.sample_values.forEach(value => {
+                        valueSelect.innerHTML += `<option value="${value}">${value}</option>`;
+                    });
+                } else {
+                    // For categorical parameters, show all values
+                    param.values.forEach(value => {
+                        valueSelect.innerHTML += `<option value="${value}">${value}</option>`;
+                    });
+                }
+            } else {
+                valueSelect.disabled = true;
+                valueSelect.innerHTML = '<option value="">Select Parameter First</option>';
+            }
+        }
+
+        function removeFixedParameter(button) {
+            button.closest('.fixed-param-item').remove();
+        }
+
+        function createPlot() {
+            // Show loading
+            $('.loading').show();
+            $('.error-message').hide();
+            $('.success-message').hide();
+
+            // Collect parameters
+            const xParam = $('#xParam').val();
+            const yParam = $('#yParam').val();
+            const labelParam = $('#labelParam').val();
+
+            // Validate required parameters
+            if (!xParam) {
+                showError('Please select an X-axis parameter');
+                $('.loading').hide();
+                return;
+            }
+
+            // Collect fixed parameters
+            const fixedParams = {};
+            $('.fixed-param-item').each(function() {
+                const paramSelect = $(this).find('.fixed-param-select');
+                const valueSelect = $(this).find('.fixed-param-value');
+                
+                const param = paramSelect.val();
+                const value = valueSelect.val();
+                
+                if (param && value) {
+                    fixedParams[param] = value;
+                }
+            });
+
+            // Prepare request data
+            const requestData = {
+                x_param: xParam,
+                y_param: yParam,
+                label_param: labelParam || null,
+                fixed_params: fixedParams
+            };
+
+            console.log('Creating plot with data:', requestData);
+
+            // Make API request
+            $.ajax({
+                url: '/create_plot',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function(response) {
+                    $('.loading').hide();
+                    console.log('Server response:', response);
+                    
+                    if (response.success) {
+                        showSuccess(`Plot created successfully! Found ${response.data_points} data points.`);
+                        console.log('Plot JSON:', response.plot);
+                        
+                        try {
+                            // Parse the plot data
+                            const plotData = JSON.parse(response.plot);
+                            console.log('Parsed plot data:', plotData);
+                            console.log('Number of traces:', plotData.data.length);
+                            
+                            // Check if there are any traces with data
+                            let hasData = false;
+                            for (let i = 0; i < plotData.data.length; i++) {
+                                const trace = plotData.data[i];
+                                console.log(`Trace ${i}:`, trace.name, 'x length:', trace.x.length, 'y length:', trace.y.length);
+                                if (trace.x && trace.x.length > 0 && trace.y && trace.y.length > 0) {
+                                    hasData = true;
+                                }
+                            }
+                            
+                            if (!hasData) {
+                                showError('Plot created but no data points found in traces');
+                                return;
+                            }
+                            
+                            // Create the plot
+                            Plotly.newPlot('plotContainer', plotData.data, plotData.layout, {
+                                responsive: true,
+                                displayModeBar: true,
+                                modeBarButtonsToRemove: ['pan2d', 'lasso2d', 'select2d']
+                            });
+                            
+                            console.log('Plot rendered successfully');
+                        } catch (e) {
+                            console.error('Error parsing or rendering plot:', e);
+                            showError('Error rendering plot: ' + e.message);
+                        }
+                    } else {
+                        showError(response.error || 'Failed to create plot');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('.loading').hide();
+                    console.error('AJAX error:', xhr, status, error);
+                    showError('Error creating plot: ' + error);
+                }
+            });
+        }
+
+        function showError(message) {
+            $('#errorMessage').text(message).show();
+            setTimeout(() => {
+                $('#errorMessage').hide();
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            $('#successMessage').text(message).show();
+            setTimeout(() => {
+                $('#successMessage').hide();
+            }, 3000);
+        }
+
+        // Add some example configurations
+        function loadExample() {
+            $('#xParam').val('Interest_Rate');
+            $('#yParam').val('Weighted Monthly Payment (30 years)');
+            $('#labelParam').val('Inflation_Rate');
+            
+            // Add a fixed parameter
+            addFixedParameter();
+            const firstFixedParam = document.querySelector('.fixed-param-select');
+            firstFixedParam.value = 'Term_Months';
+            updateFixedParamValues(firstFixedParam);
+            
+            const firstValueSelect = firstFixedParam.parentElement.parentElement.querySelector('.fixed-param-value');
+            firstValueSelect.value = '360';
+        }
+    </script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html> 

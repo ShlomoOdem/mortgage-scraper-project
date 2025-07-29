@@ -111,8 +111,11 @@ def save_analysis_results(original_summary, investment_summary, weighted_result,
     loan_term_months = original_summary.get('Loan Term (months)', 'Unknown')
     inflation_rate = original_summary.get('Inflation Rate (%)', 'Unknown')
     
+    # Get amortization method from original summary
+    amortization_method = original_summary.get('Amortization Method', 'קרן_שווה')
+    
     # Create filename with loan parameters
-    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}"
+    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}_amort_{amortization_method}"
     
     # Save enhanced payments data
     payments_filename = os.path.join(payments_dir, f"{base_filename}_enhanced_payments.csv")

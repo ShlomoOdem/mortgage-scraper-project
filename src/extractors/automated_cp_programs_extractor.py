@@ -468,12 +468,12 @@ def parse_cp_programs_data(cp_programs_value):
         print(f"Error parsing cp_programs data: {e}")
         return None
 
-def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linked", interest_rate="3.5", loan_term_months="360", inflation_rate="2.0"):
+def save_cp_programs_data(cp_programs_value, parsed_data, loan_type="Fixed_Linked", interest_rate="3.5", loan_term_months="360", inflation_rate="2.0", amortization="שפיצר"):
     """Save the cp_programs data to CSV files with loan parameters in filename"""
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     
     # Create filename with loan parameters
-    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}"
+    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}_amort_{amortization}"
     
     # Save monthly payments as CSV in payments_files folder
     payments_filename = os.path.join("data", "raw", "payments_files", f"{base_filename}_payments.csv")
@@ -616,7 +616,8 @@ def extract_cp_programs_automated(driver, loan_amount="1000000", interest_rate="
             loan_type=channel,  # Use channel as loan type
             interest_rate=interest_rate,
             loan_term_months=loan_term_months,
-            inflation_rate=cpi_rate
+            inflation_rate=cpi_rate,
+            amortization=amortization
         )
         
         print("Extraction completed successfully!")

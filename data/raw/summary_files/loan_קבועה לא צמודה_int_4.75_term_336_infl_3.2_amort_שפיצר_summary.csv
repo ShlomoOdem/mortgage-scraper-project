@@ -1,0 +1,11 @@
+Parameter,Value
+Loan Type,קבועה לא צמודה
+Interest Rate (%),4.75
+Loan Term (months),336
+Inflation Rate (%),3.2
+Loan Amount,1000000
+Channel,קבועה לא צמודה
+Amortization Method,שפיצר
+Total Monthly Payments,336
+Total Mortgage Interest,809948.65
+Extraction Timestamp,20250729_033358

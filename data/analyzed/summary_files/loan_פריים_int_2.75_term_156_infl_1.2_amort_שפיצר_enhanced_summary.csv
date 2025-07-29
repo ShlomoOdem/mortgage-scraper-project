@@ -1,0 +1,20 @@
+Parameter,Value
+Loan Type,פריים
+Interest Rate (%),2.75
+Loan Term (months),156
+Inflation Rate (%),1.2
+Loan Amount,1000000
+Channel,פריים
+Amortization Method,שפיצר
+Total Monthly Payments,156
+Total Mortgage Interest,190511.19
+Extraction Timestamp,20250729_042412
+Monthly Income,"12,000.00"
+Total Investment Amount,"681,488.81"
+Total Investment Final Value,"1,113,135.74"
+Total Investment Profit After Tax,"210,879.34"
+Effective Annual Return After Tax,3.33%
+Weighted Monthly Payment (30 years),"6,415.02"
+Weighted Cost (should be ~0),0.02
+Weighted Investment Profit,"190,511.21"
+Weighted Calculation Converged,Yes

@@ -1,0 +1,11 @@
+Parameter,Value
+Loan Type,פריים
+Interest Rate (%),2.5
+Loan Term (months),60
+Inflation Rate (%),1.5
+Loan Amount,1000000
+Channel,פריים
+Amortization Method,שפיצר
+Total Monthly Payments,60
+Total Mortgage Interest,64841.70
+Extraction Timestamp,20250729_025402

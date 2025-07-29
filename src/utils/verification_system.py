@@ -28,7 +28,8 @@ class VerificationSystem:
     def get_combination_filename(self, combination: Dict[str, Any]) -> str:
         """Generate filename for a combination"""
         key = self.get_combination_key(combination)
-        return f"loan_{combination['channel']}_int_{combination['interest_rate']}_term_{combination['loan_term_months']}_infl_{combination['cpi_rate']}"
+        amortization = combination.get('amortization', 'קרן_שווה')  # Default to קרן שווה if not present
+        return f"loan_{combination['channel']}_int_{combination['interest_rate']}_term_{combination['loan_term_months']}_infl_{combination['cpi_rate']}_amort_{amortization}"
     
     def check_extraction_status(self, combination: Dict[str, Any]) -> Tuple[bool, str]:
         """Check if combination has been extracted"""

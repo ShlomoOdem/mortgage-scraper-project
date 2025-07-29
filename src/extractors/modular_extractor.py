@@ -502,12 +502,12 @@ def parse_cp_programs_data(cp_programs_value):
         print(f"Error parsing cp_programs data: {e}")
         return None
 
-def save_raw_mortgage_data(cp_programs_value, parsed_data, loan_type="Fixed_Linked", interest_rate="3.5", loan_term_months="360", inflation_rate="2.0"):
+def save_raw_mortgage_data(cp_programs_value, parsed_data, loan_type="Fixed_Linked", interest_rate="3.5", loan_term_months="360", inflation_rate="2.0", amortization="שפיצר"):
     """Save the raw mortgage data to CSV files without any analysis"""
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     
     # Create filename with loan parameters
-    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}"
+    base_filename = f"loan_{loan_type}_int_{interest_rate}_term_{loan_term_months}_infl_{inflation_rate}_amort_{amortization}"
     
     # Save monthly payments as CSV in payments_files folder
     payments_filename = os.path.join("data", "raw", "payments_files", f"{base_filename}_payments.csv")
@@ -650,7 +650,8 @@ def extract_single_mortgage(driver, loan_amount="1000000", interest_rate="3.5", 
             loan_type=channel,  # Use channel as loan type
             interest_rate=interest_rate,
             loan_term_months=loan_term_months,
-            inflation_rate=cpi_rate
+            inflation_rate=cpi_rate,
+            amortization=amortization
         )
         
         print("Extraction completed successfully!")
@@ -669,16 +670,16 @@ def extract_multiple_mortgages(loan_combinations, headless=True, tracking_file="
         print("Starting batch extraction...")
         print(f"Total combinations to process: {len(loan_combinations)}")
         
-        # Filter out already processed combinations
-        unprocessed_combinations, already_processed_count = filter_unprocessed_combinations(loan_combinations, tracking_file)
+        # # Filter out already processed combinations
+        # unprocessed_combinations, already_processed_count = filter_unprocessed_combinations(loan_combinations, tracking_file)
         
-        if already_processed_count > 0:
-            print(f"Found {already_processed_count} already processed combinations, skipping them...")
-            print(f"Remaining combinations to process: {len(unprocessed_combinations)}")
+        # if already_processed_count > 0:
+        #     print(f"Found {already_processed_count} already processed combinations, skipping them...")
+        #     print(f"Remaining combinations to process: {len(unprocessed_combinations)}")
         
-        if not unprocessed_combinations:
-            print("All combinations have already been processed!")
-            return []
+        # if not unprocessed_combinations:
+        #     print("All combinations have already been processed!")
+        #     return []
         
         # Setup driver once
         driver = setup_driver(headless)
@@ -689,8 +690,8 @@ def extract_multiple_mortgages(loan_combinations, headless=True, tracking_file="
         driver.get(url)
         
         # Process each combination
-        for i, combo in enumerate(unprocessed_combinations, 1):
-            print(f"\nProcessing combination {i}/{len(unprocessed_combinations)}")
+        for i, combo in enumerate(loan_combinations , 1):
+            print(f"\nProcessing combination {i}/{len(loan_combinations)}")
             
             loan_amount = combo.get('loan_amount', '1000000')
             interest_rate = combo.get('interest_rate', '3.5')
@@ -711,7 +712,7 @@ def extract_multiple_mortgages(loan_combinations, headless=True, tracking_file="
                 })
                 print(f"✓ Success: {loan_amount} @ {interest_rate}% for {loan_term_months} months")
                 # Mark as processed only if successful
-                mark_combination_as_processed(combo, tracking_file)
+                # mark_combination_as_processed(combo, tracking_file)
             else:
                 results.append({
                     'combination': combo,
@@ -727,7 +728,7 @@ def extract_multiple_mortgages(loan_combinations, headless=True, tracking_file="
         print(f"\nBatch extraction completed!")
         print(f"Successful: {sum(1 for r in results if r['status'] == 'success')}")
         print(f"Failed: {sum(1 for r in results if r['status'] == 'failed')}")
-        print(f"Skipped (already processed): {already_processed_count}")
+        # print(f"Skipped (already processed): {already_processed_count}")
         
         return results
         

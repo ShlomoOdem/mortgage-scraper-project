@@ -62,12 +62,12 @@ echo "🏠 MORTGAGE ANALYSIS: $filename"
 echo "=========================================="
 echo "Starting at: \$(date)"
 echo "Working directory: \$(pwd)"
-echo "Command: python3 run_modular_workflow.py --full --combination-file '$file' --combinations 0"
+echo "Command: python3 run_modular_workflow.py --analyze --combination-file '$file' --combinations 0"
 echo "=========================================="
 echo ""
 
 # Run the command and capture exit code
-python3 run_modular_workflow.py --full --combination-file "$file" --combinations 0
+python3 run_modular_workflow.py --analyze --combination-file "$file" --combinations 0
 exit_code=\$?
 
 echo ""
@@ -137,7 +137,7 @@ EOF
 for file in $COMBINATION_FILES; do
     run_combination_file "$file"
     # Small delay to prevent overwhelming the system
-    sleep 60
+    sleep 1
 done
 
 echo ""

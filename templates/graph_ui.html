@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Data Graph Generator</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .column-selector {
+            margin-bottom: 10px;
+        }
+        .filter-controls {
+            margin-top: 10px;
+        }
+        .range-slider {
+            width: 100%;
+        }
+        .value-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: white;
+        }
+        .value-item {
+            margin: 2px 0;
+        }
+        .graph-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: white;
+        }
+        .stats-panel {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">Mortgage Data Graph Generator</h1>
+                <div class="stats-panel">
+                    <strong>Dataset:</strong> {{ total_rows }} mortgage scenarios loaded
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Control Panel -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Graph Configuration</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Graph Type Selection -->
+                        <div class="mb-3">
+                            <label for="graphType" class="form-label">Graph Type:</label>
+                            <select id="graphType" class="form-select">
+                                <option value="scatter">Scatter Plot</option>
+                                <option value="line">Line Plot</option>
+                                <option value="bar">Bar Chart</option>
+                                <option value="histogram">Histogram</option>
+                                <option value="box">Box Plot</option>
+                            </select>
+                        </div>
+
+                        <!-- Column Selection -->
+                        <div class="mb-3">
+                            <label for="xColumn" class="form-label">X-Axis Column:</label>
+                            <select id="xColumn" class="form-select">
+                                <option value="">Select X-axis column...</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="yColumn" class="form-label">Y-Axis Column:</label>
+                            <select id="yColumn" class="form-select">
+                                <option value="">Select Y-axis column...</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="colorColumn" class="form-label">Color By (Optional):</label>
+                            <select id="colorColumn" class="form-select">
+                                <option value="">No color grouping</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sizeColumn" class="form-label">Size By (Optional):</label>
+                            <select id="sizeColumn" class="form-select">
+                                <option value="">No size variation</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="graphTitle" class="form-label">Graph Title (Optional):</label>
+                            <input type="text" id="graphTitle" class="form-control" placeholder="Enter custom title...">
+                        </div>
+
+                        <!-- Filters Section -->
+                        <div class="filter-section">
+                            <h6>Data Filters</h6>
+                            <div id="filterControls">
+                                <!-- Dynamic filter controls will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="d-grid">
+                            <button id="generateBtn" class="btn btn-primary">Generate Graph</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graph Display -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Graph Output</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="graphContainer" class="graph-container">
+                            <div class="loading">
+                                <p>Select columns and click "Generate Graph" to create your visualization</p>
+                            </div>
+                        </div>
+                        <div id="graphStats" class="mt-3" style="display: none;">
+                            <small class="text-muted">Data points: <span id="dataPointCount">0</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let columnInfo = {{ column_info | tojson }};
+        let currentFilters = {};
+
+        // Initialize the interface
+        $(document).ready(function() {
+            populateColumnSelectors();
+            setupEventListeners();
+            createFilterControls();
+        });
+
+        function populateColumnSelectors() {
+            const columns = Object.keys(columnInfo);
+            
+            // Populate all column selectors
+            ['xColumn', 'yColumn', 'colorColumn', 'sizeColumn'].forEach(selectorId => {
+                const selector = $(`#${selectorId}`);
+                selector.empty();
+                
+                if (selectorId === 'colorColumn' || selectorId === 'sizeColumn') {
+                    selector.append('<option value="">No selection</option>');
+                } else {
+                    selector.append('<option value="">Select column...</option>');
+                }
+                
+                columns.forEach(col => {
+                    const type = columnInfo[col].type;
+                    const label = `${col} (${type})`;
+                    selector.append(`<option value="${col}">${label}</option>`);
+                });
+            });
+        }
+
+        function createFilterControls() {
+            const filterContainer = $('#filterControls');
+            filterContainer.empty();
+
+            Object.keys(columnInfo).forEach(col => {
+                const info = columnInfo[col];
+                const filterDiv = $(`<div class="mb-3 filter-control" data-column="${col}"></div>`);
+                
+                const label = $(`<label class="form-label">${col}:</label>`);
+                filterDiv.append(label);
+
+                if (info.type === 'numeric') {
+                    // Range slider for numeric columns
+                    const rangeDiv = $(`
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="number" class="form-control range-min" 
+                                       placeholder="Min" value="${info.min}" step="any">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control range-max" 
+                                       placeholder="Max" value="${info.max}" step="any">
+                            </div>
+                        </div>
+                    `);
+                    filterDiv.append(rangeDiv);
+                } else {
+                    // Multi-select for categorical columns
+                    const selectDiv = $(`
+                        <select class="form-select multiple-select" multiple>
+                            ${info.unique_values.map(val => 
+                                `<option value="${val}" selected>${val}</option>`
+                            ).join('')}
+                        </select>
+                    `);
+                    filterDiv.append(selectDiv);
+                }
+
+                filterContainer.append(filterDiv);
+            });
+        }
+
+        function setupEventListeners() {
+            // Graph type change
+            $('#graphType').change(function() {
+                updateColumnVisibility();
+            });
+
+            // Generate button
+            $('#generateBtn').click(function() {
+                generateGraph();
+            });
+
+            // Filter controls
+            $(document).on('change', '.range-min, .range-max, .multiple-select', function() {
+                updateFilters();
+            });
+        }
+
+        function updateColumnVisibility() {
+            const graphType = $('#graphType').val();
+            
+            // Show/hide size column based on graph type
+            if (graphType === 'scatter') {
+                $('#sizeColumn').parent().show();
+            } else {
+                $('#sizeColumn').parent().hide();
+                $('#sizeColumn').val('');
+            }
+        }
+
+        function updateFilters() {
+            currentFilters = {};
+            
+            $('.filter-control').each(function() {
+                const column = $(this).data('column');
+                const info = columnInfo[column];
+                
+                if (info.type === 'numeric') {
+                    const minVal = parseFloat($(this).find('.range-min').val());
+                    const maxVal = parseFloat($(this).find('.range-max').val());
+                    
+                    if (!isNaN(minVal) && !isNaN(maxVal)) {
+                        currentFilters[column] = {
+                            type: 'range',
+                            min: minVal,
+                            max: maxVal
+                        };
+                    }
+                } else {
+                    const selectedValues = $(this).find('.multiple-select').val();
+                    if (selectedValues && selectedValues.length > 0) {
+                        currentFilters[column] = {
+                            type: 'values',
+                            values: selectedValues
+                        };
+                    }
+                }
+            });
+        }
+
+        function generateGraph() {
+            const xCol = $('#xColumn').val();
+            const yCol = $('#yColumn').val();
+            const colorCol = $('#colorColumn').val() || null;
+            const sizeCol = $('#sizeColumn').val() || null;
+            const graphType = $('#graphType').val();
+            const title = $('#graphTitle').val() || '';
+
+            if (!xCol || !yCol) {
+                alert('Please select both X and Y axis columns.');
+                return;
+            }
+
+            // Show loading
+            $('#graphContainer').html('<div class="loading"><p>Generating graph...</p></div>');
+            $('#graphStats').hide();
+
+            // Update filters
+            updateFilters();
+
+            // Prepare request data
+            const requestData = {
+                x_column: xCol,
+                y_column: yCol,
+                color_column: colorCol,
+                size_column: sizeCol,
+                graph_type: graphType,
+                filters: currentFilters,
+                title: title
+            };
+
+            // Make API request
+            $.ajax({
+                url: '/api/graph',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function(response) {
+                    if (response.success) {
+                        // Parse and display the graph
+                        const graphData = JSON.parse(response.graph);
+                        Plotly.newPlot('graphContainer', graphData.data, graphData.layout);
+                        
+                        // Update stats
+                        $('#dataPointCount').text(response.data_points);
+                        $('#graphStats').show();
+                    } else {
+                        $('#graphContainer').html(`<div class="alert alert-danger">${response.error}</div>`);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#graphContainer').html(`<div class="alert alert-danger">Error: ${error}</div>`);
+                }
+            });
+        }
+
+        // Initialize column visibility
+        updateColumnVisibility();
+    </script>
+</body>
+</html> 

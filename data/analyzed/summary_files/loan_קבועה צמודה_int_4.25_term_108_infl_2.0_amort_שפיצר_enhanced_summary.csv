@@ -1,0 +1,20 @@
+Parameter,Value
+Loan Type,קבועה צמודה
+Interest Rate (%),4.25
+Loan Term (months),108
+Inflation Rate (%),2.0
+Loan Amount,1000000
+Channel,קבועה צמודה
+Amortization Method,שפיצר
+Total Monthly Payments,108
+Total Mortgage Interest,218692.13
+Extraction Timestamp,20250729_043224
+Monthly Income,"12,000.00"
+Total Investment Amount,"18,155.90"
+Total Investment Final Value,"31,426.63"
+Total Investment Profit After Tax,"6,398.52"
+Effective Annual Return After Tax,5.46%
+Weighted Monthly Payment (30 years),"8,492.38"
+Weighted Cost (should be ~0),-0.11
+Weighted Investment Profit,"321,434.72"
+Weighted Calculation Converged,Yes

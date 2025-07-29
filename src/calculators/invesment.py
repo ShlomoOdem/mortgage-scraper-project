@@ -57,7 +57,10 @@ class StockInvestment:
         net_value_after_tax = inflation_adjusted_amount + profit_after_tax
         
         # Calculate return multiple
-        return_multiple = final_value / investment_amount
+        if investment_amount:
+            return_multiple = final_value / investment_amount
+        else:
+            return_multiple = 0
             
         return {
             'month_invested': month,

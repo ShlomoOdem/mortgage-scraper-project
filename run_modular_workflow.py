@@ -246,4 +246,4 @@ def main(extract=False, analyze=False, full=False, no_headless=False, income=120
     return success
 
 if __name__ == "__main__":
-    main(extract=False, analyze=True, full=True, no_headless=True, income=12000, combinations=0,combination_file="data/combinations_001.json") 
+    main(extract=True, analyze=True, full=True, no_headless=True, income=12000, combinations=0,combination_file="data/combinations_005.json") 

@@ -1,6 +1,6 @@
 {
-  "total_combinations": 51272,
-  "total_files": 11,
+  "total_combinations": 25636,
+  "total_files": 6,
   "combinations_per_file": 5000,
   "files": [
     {
@@ -25,27 +25,7 @@
     },
     {
       "file": "combinations_006.json",
-      "combinations": 5000
-    },
-    {
-      "file": "combinations_007.json",
-      "combinations": 5000
-    },
-    {
-      "file": "combinations_008.json",
-      "combinations": 5000
-    },
-    {
-      "file": "combinations_009.json",
-      "combinations": 5000
-    },
-    {
-      "file": "combinations_010.json",
-      "combinations": 5000
-    },
-    {
-      "file": "combinations_011.json",
-      "combinations": 1272
+      "combinations": 636
     }
   ],
   "parameters": {
@@ -68,8 +48,7 @@
       "זכאות"
     ],
     "amortization_methods": [
-      "שפיצר",
-      "קרן שווה"
+      "שפיצר"
     ]
   }
 }

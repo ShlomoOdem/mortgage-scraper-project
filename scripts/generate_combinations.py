@@ -50,7 +50,7 @@ def generate_combinations(
     
     amortization_methods = [
         "שפיצר",
-        "קרן שווה",
+        # "קרן שווה",
     ]
     
     # Generate ranges
